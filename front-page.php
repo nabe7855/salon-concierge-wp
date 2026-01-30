@@ -2,47 +2,47 @@
 
 <div class="font-sans text-botanical-text bg-botanical-bg">
     <!-- Hero Section -->
-    <section class="relative min-h-[80vh] md:min-h-[90vh] flex items-center pt-20 pb-4 md:pb-20 overflow-hidden">
+    <section class="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] flex items-center pt-16 pb-8 md:pt-24 md:pb-20 overflow-hidden">
         <!-- Background Image & Overlay -->
         <div class="absolute inset-0 z-0">
             <picture>
                 <!-- Mobile optimized image -->
                 <source media="(max-width: 767px)" srcset="<?php echo salon_img('/images/images/トップページバナー.png'); ?>">
                 <!-- Desktop optimized image -->
-                <img src="<?php echo salon_img('/images/images/hero-bg-v2.png'); ?>" alt="Call Center" class="w-full h-full object-cover object-right">
+                <img src="<?php echo salon_img('/images/images/hero-bg-v2.png'); ?>" alt="Call Center" class="w-full h-full object-cover object-right md:object-center">
             </picture>
             <div class="absolute inset-0 bg-botanical-bg -z-10 md:hidden"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-gray-50/100 via-gray-50/70 to-transparent md:from-white/95 md:via-white/80 md:via-white/60 md:to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-white/80 to-white/100 md:bg-gradient-to-r md:from-white/95 md:via-white/80 md:to-transparent"></div>
         </div>
 
         <div class="container-custom relative z-10 w-full">
-            <div class="max-w-2xl lg:ml-0 animate-fade-in">
+            <div class="max-w-2xl animate-fade-in text-center md:text-left">
                 <span class="inline-flex items-center gap-2 bg-botanical-primary/90 text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-widest shadow-sm mb-6">
                     <?php salon_icon('leaf', 'fill-white stroke-none w-[12px] h-[12px]'); ?>
-                    業界No.1の応答率・継続率
+                    <span class="keep-phrase">業界No.1の応答率・継続率</span>
                 </span>
 
-                <h2 class="text-3xl md:text-5xl lg:text-7xl font-bold font-heading text-botanical-primary leading-[1.2] md:leading-[1.1] mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
-                    メンズエステ専門<br />
+                <h2 class="text-fluid-h1 font-bold font-heading text-botanical-primary leading-[1.2] md:leading-[1.1] mb-6 drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
+                    <span class="keep-phrase">メンズエステ専門</span><br class="md:hidden" />
                     <span class="relative inline-block mt-2">
-                        <span class="relative z-10">電話代行サービス</span>
-                        <span class="absolute bottom-1 left-0 w-full h-4 bg-[#d4a373]/30 -rotate-1 z-0"></span>
+                        <span class="relative z-10 keep-phrase">電話代行サービス</span>
+                        <span class="absolute bottom-1 left-0 w-full h-3 md:h-4 bg-[#d4a373]/30 -rotate-1 z-0"></span>
                     </span>
                 </h2>
 
-                <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed mb-10 max-w-xl drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-                    お客様を逃さない<span class="text-botanical-primary font-bold">24時間365日対応</span>。<br />
-                    受付業務はプロに任せて、本業のサロン経営に集中できます。
+                <p class="text-base sm:text-lg md:text-xl font-medium text-gray-800 leading-relaxed mb-10 max-w-xl mx-auto md:mx-0 drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+                    <span class="keep-phrase">お客様を逃さない</span><span class="text-botanical-primary font-bold keep-phrase">24時間365日対応</span>。<br class="hidden sm:block" />
+                    <span class="keep-phrase">受付業務はプロに任せて</span>、<span class="keep-phrase">本業のサロン経営に集中できます</span>。
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                    <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn-cta text-lg px-10 py-4 shadow-xl hover:shadow-2xl ring-4 ring-botanical-cta/20 transform hover:-translate-y-1 transition-all">
+                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-10">
+                    <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn-cta text-lg px-8 py-4 sm:px-10 shadow-xl hover:shadow-2xl ring-4 ring-botanical-cta/20 transform hover:-translate-y-1 transition-all w-full sm:w-auto">
                         今すぐ無料相談する
                         <?php salon_icon('arrow-right', 'w-5 h-5'); ?>
                     </a>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-5 mt-2">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-5">
                     <!-- Medals -->
                     <div class="flex flex-col items-center justify-center w-[84px] h-[84px] md:w-28 md:h-28 rounded-full bg-gradient-to-br from-[#FFFDE7] via-[#FFF59D] to-[#FBC02D] border-[3px] md:border-[4px] border-[#fff] shadow-[0_6px_10px_rgba(0,0,0,0.15),0_0_0_1px_rgba(251,192,45,1)] relative transform hover:scale-105 transition-transform duration-300">
                         <div class="absolute inset-2 rounded-full border border-[#F9A825]/30"></div>
@@ -74,48 +74,59 @@
     </section>
 
     <!-- Problems Section -->
-    <section class="bg-white section-padding border-b border-gray-100 relative overflow-hidden">
+    <section class="bg-white py-16 md:py-24 border-b border-gray-100 relative overflow-hidden">
         <div class="container-custom relative z-10">
             <div class="text-center mb-16">
                 <span class="text-botanical-primary font-bold tracking-widest text-xs uppercase mb-3 block opacity-70">PAIN POINTS</span>
-                <h2 class="text-3xl font-bold text-gray-800 font-heading">こんなお悩みはありませんか？</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">
+                    <span class="keep-phrase">こんなお悩みは</span><span class="keep-phrase">ありませんか？</span>
+                </h2>
                 <div class="mx-auto mt-4 w-12 h-1 bg-botanical-cta rounded-full"></div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                 <?php
                 $problems = array(
-                    array('icon' => 'phone', 'text' => '電話が多すぎて、対応出来ず取りこぼしてる、、、'),
-                    array('icon' => 'message-square', 'text' => 'LINEやWEB予約の返信が遅れ、機会損失になっている…'),
-                    array('icon' => 'clock', 'text' => '深夜や早朝の問い合わせに対応できず、売上を逃している…'),
+                    array('icon' => 'phone', 'text' => "電話が多すぎて、\n対応出来ず取りこぼしてる、、、"),
+                    array('icon' => 'message-square', 'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…"),
+                    array('icon' => 'clock', 'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…"),
                 );
                 foreach ($problems as $item) :
                 ?>
-                    <div class="bg-botanical-bg p-6 md:p-10 rounded-2xl border border-transparent text-center hover:border-botanical-primary/20 hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
+                    <div class="bg-botanical-bg p-8 md:p-10 rounded-2xl border border-transparent text-center hover:border-botanical-primary/20 hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-botanical-primary/5 rounded-bl-[4rem] transition-all group-hover:bg-botanical-primary/10"></div>
-                        <div class="w-20 h-20 bg-white rounded-full mx-auto flex items-center justify-center text-botanical-cta shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <?php salon_icon($item['icon'], 'w-[36px] h-[36px]'); ?>
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full mx-auto flex items-center justify-center text-botanical-cta shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <?php salon_icon($item['icon'], 'w-8 h-8 md:w-9 md:h-9'); ?>
                         </div>
-                        <p class="font-bold text-gray-700 leading-loose text-base md:text-lg"><?php echo esc_html($item['text']); ?></p>
+                        <p class="font-bold text-gray-700 leading-loose text-sm md:text-lg whitespace-pre-line">
+                            <?php 
+                            $lines = explode("\n", $item['text']);
+                            foreach($lines as $line) {
+                                echo '<span class="keep-phrase">' . esc_html($line) . '</span>';
+                            }
+                            ?>
+                        </p>
                     </div>
                 <?php endforeach; ?>
             </div>
 
-            <div class="mt-16 text-center bg-gradient-to-r from-botanical-primary/5 to-botanical-primary/10 p-8 rounded-2xl max-w-4xl mx-auto border border-botanical-primary/10">
-                <p class="font-bold text-botanical-primary text-xl font-heading leading-relaxed">
-                    その課題、SalonConciergeが解決します。<br class="hidden md:block" />
-                    機会損失を防ぎ、サロンの売上最大化に貢献します。
+            <div class="mt-16 text-center bg-gradient-to-r from-botanical-primary/5 to-botanical-primary/10 p-6 md:p-10 rounded-2xl max-w-4xl mx-auto border border-botanical-primary/10">
+                <p class="font-bold text-botanical-primary text-lg md:text-xl font-heading leading-relaxed">
+                    <span class="keep-phrase">その課題、SalonConciergeが解決します。</span><br class="hidden md:block" />
+                    <span class="keep-phrase">機会損失を防ぎ、</span><span class="keep-phrase">サロンの売上最大化に貢献します。</span>
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="section-padding bg-botanical-bg/30 relative">
+    <section id="features" class="py-20 md:py-32 bg-botanical-bg/30 relative">
         <div class="container-custom">
-            <div class="text-center mb-24">
+            <div class="text-center mb-16 md:mb-24">
                 <span class="text-botanical-cta font-bold tracking-widest text-xs uppercase mb-3 block">OUR STRENGTHS</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 font-heading">選ばれる6つの理由</h2>
+                <h2 class="text-2xl md:text-4xl font-bold text-gray-800 font-heading">
+                    <span class="keep-phrase">選ばれる</span><span class="keep-phrase">6つの理由</span>
+                </h2>
             </div>
 
             <div class="flex flex-col gap-24">
@@ -202,12 +213,16 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="section-padding bg-white relative">
+    <section id="pricing" class="py-20 md:py-32 bg-white relative">
         <div class="container-custom">
             <div class="text-center mb-16">
                 <span class="text-botanical-primary font-bold tracking-widest text-xs uppercase mb-3 block opacity-70">PRICING</span>
-                <h2 class="text-3xl font-bold text-gray-800 font-heading">安心の料金プラン</h2>
-                <p class="text-gray-500 mt-4 text-sm md:text-base">初期費用0円キャンペーン実施中。リスクなく始められます。</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">
+                    <span class="keep-phrase">安心の</span><span class="keep-phrase">料金プラン</span>
+                </h2>
+                <p class="text-gray-500 mt-4 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+                    <span class="keep-phrase">初期費用0円</span><span class="keep-phrase">キャンペーン実施中。</span><br class="sm:hidden" /><span class="keep-phrase">リスクなく始められます。</span>
+                </p>
             </div>
 
             <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
@@ -257,11 +272,13 @@
     </section>
 
     <!-- Flow Section -->
-    <section id="flow" class="section-padding bg-botanical-bg/50">
+    <section id="flow" class="py-20 md:py-32 bg-botanical-bg/50">
         <div class="container-custom">
             <div class="text-center mb-16">
                 <span class="text-botanical-cta font-bold tracking-widest text-xs uppercase mb-3 block">FLOW</span>
-                <h2 class="text-3xl font-bold text-gray-800 font-heading">導入までの流れ</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">
+                    <span class="keep-phrase">導入までの</span><span class="keep-phrase">流れ</span>
+                </h2>
             </div>
             <div class="relative">
                 <div class="hidden md:block absolute top-[18px] left-0 w-full h-0.5 bg-gray-200 -z-10 transform translate-y-8"></div>
@@ -294,12 +311,17 @@
     </section>
 
     <!-- Preparation Section -->
-    <section class="section-padding bg-white relative overflow-hidden">
+    <section class="py-20 md:py-32 bg-white relative overflow-hidden">
         <div class="container-custom relative z-10">
             <div class="text-center mb-16">
                 <span class="text-botanical-primary font-bold tracking-widest text-xs uppercase mb-3 block opacity-70">PREPARATION</span>
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">代行業務スタートに向けた準備</h2>
-                <p class="text-gray-500 mt-4 text-sm md:text-base max-w-2xl mx-auto">サービス開始にあたって以下のものをご用意いただきます。不足しているものがある場合も、弊社で柔軟にサポートいたしますのでご安心ください。</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">
+                    <span class="keep-phrase">代行業務スタートに向けた</span><span class="keep-phrase">準備</span>
+                </h2>
+                <p class="text-gray-500 mt-4 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                    <span class="keep-phrase">サービス開始にあたって</span><span class="keep-phrase">以下のものをご用意いただきます。</span><br class="hidden sm:block" />
+                    <span class="keep-phrase">不足しているものがある場合も、</span><span class="keep-phrase">弊社で柔軟にサポートいたしますので</span><span class="keep-phrase">ご安心ください。</span>
+                </p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
                 <?php
@@ -328,16 +350,18 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="section-padding bg-white overflow-hidden">
+    <section class="py-20 md:py-32 bg-white overflow-hidden">
         <div class="container-custom mb-16">
             <div class="text-center">
                 <span class="text-botanical-primary font-bold tracking-widest text-xs uppercase mb-3 block opacity-70">VOICE</span>
-                <h2 class="text-3xl font-bold text-gray-800 font-heading">導入サロン様の声</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">
+                    <span class="keep-phrase">導入サロン様の</span><span class="keep-phrase">声</span>
+                </h2>
             </div>
         </div>
         <div class="relative">
-            <div class="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-10"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-10"></div>
+            <div class="absolute left-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-r from-white via-white/80 to-transparent z-10"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-l from-white via-white/80 to-transparent z-10"></div>
             <div class="flex animate-marquee hover:pause gap-6">
                 <?php
                 $testimonials = array(
@@ -375,21 +399,26 @@
     <!-- Final CTA -->
     <section class="py-24 bg-botanical-primary relative overflow-hidden text-center text-white">
         <div class="container-custom relative z-10">
-            <h2 class="text-3xl md:text-5xl font-bold font-heading mb-6 tracking-tight">まずは無料相談から始めませんか？</h2>
-            <p class="text-botanical-bg text-lg mb-12 max-w-2xl mx-auto font-medium">導入前の疑問や不安な点など、どんなことでもお気軽にご相談ください。<br />しつこい営業は一切いたしません。</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
-                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="bg-white text-botanical-primary font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition-all shadow-xl text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-heading mb-6 tracking-tight leading-tight">
+                <span class="keep-phrase">まずは無料相談から</span><br class="sm:hidden" /><span class="keep-phrase">始めませんか？</span>
+            </h2>
+            <p class="text-botanical-bg text-base sm:text-lg mb-12 max-w-2xl mx-auto font-medium leading-relaxed px-4">
+                <span class="keep-phrase">導入前の疑問や不安な点など、</span><span class="keep-phrase">どんなことでもお気軽にご相談ください。</span><br class="hidden sm:block" />
+                <span class="keep-phrase">しつこい営業は一切いたしません。</span>
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 px-4">
+                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="w-full sm:w-auto bg-white text-botanical-primary font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition-all shadow-xl text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
                     無料相談を予約する
                     <?php salon_icon('calendar', 'w-5 h-5'); ?>
                 </a>
-                <a href="<?php echo esc_url(home_url('/services')); ?>" class="bg-transparent border-2 border-white text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                <a href="<?php echo esc_url(home_url('/services')); ?>" class="w-full sm:w-auto bg-transparent border-2 border-white text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
                     料金・プランを見る
                     <?php salon_icon('arrow-right', 'w-5 h-5'); ?>
                 </a>
             </div>
-            <p class="mt-8 text-[10px] md:text-xs opacity-60 flex items-center justify-center gap-1.5">
+            <p class="mt-8 text-[10px] md:text-xs opacity-60 flex items-center justify-center gap-1.5 px-4">
                 <?php salon_icon('lock', 'w-3 h-3'); ?>
-                オンライン相談・登録はSSL暗号化通信で守られています
+                <span class="keep-phrase">オンライン相談・登録は</span><span class="keep-phrase">SSL暗号化通信で守られています</span>
             </p>
         </div>
     </section>

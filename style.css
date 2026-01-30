@@ -12,3 +12,51 @@ Text Domain: salon-concierge
   Tailwind v4 configuration and custom components have been moved to header.php 
   to ensure the @tailwindcss/browser script can process them correctly.
 */
+
+/* --- Typography Optimization --- */
+.keep-phrase {
+  display: inline-block;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.text-fluid-h1 {
+  font-size: clamp(1.75rem, 5vw + 1rem, 3.5rem);
+}
+
+.text-fluid-h2 {
+  font-size: clamp(1.5rem, 4vw + 0.5rem, 2.5rem);
+}
+
+/* --- Layout Utils --- */
+.container-custom {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-custom {
+    max-width: 1200px;
+  }
+}
+
+/* Fix for long English words in Japanese text */
+.break-words-jp {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}

@@ -18,13 +18,15 @@ get_header(); ?>
     <section class="pt-16 pb-24">
         <div class="container mx-auto px-4 max-w-6xl">
             <!-- Page Header -->
-            <div class="flex flex-col items-center mb-20">
+            <div class="flex flex-col items-center mb-12 md:mb-20">
                 <div class="bg-salon-pink/5 p-4 rounded-full mb-6 text-salon-pink">
                     <?php salon_icon('book-open', 'w-8 h-8'); ?>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-800 tracking-[0.2em] mb-4 uppercase">Column</h1>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-[0.2em] mb-4 uppercase">Column</h1>
                 <div class="w-12 h-1 bg-salon-pink rounded-full mb-4"></div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest font-medium">メンズエステ経営に役立つ情報発信</p>
+                <p class="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest font-medium text-center px-4">
+                    <span class="keep-phrase">メンズエステ経営に</span><span class="keep-phrase">役立つ情報発信</span>
+                </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -41,18 +43,18 @@ get_header(); ?>
                     if ($query->have_posts()) :
                         while ($query->have_posts()) : $query->the_post();
                     ?>
-                        <article class="group bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <article class="group bg-white rounded-[24px] md:rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100">
                             <a href="<?php the_permalink(); ?>" class="flex flex-col md:flex-row">
-                                <div class="md:w-1/3 overflow-hidden">
+                                <div class="md:w-1/3 overflow-hidden aspect-video md:aspect-auto">
                                     <?php if (has_post_thumbnail()) : ?>
-                                        <?php the_post_thumbnail('medium_large', array('class' => 'w-full h-48 md:h-full object-cover group-hover:scale-110 transition-transform duration-700')); ?>
+                                        <?php the_post_thumbnail('medium_large', array('class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-700')); ?>
                                     <?php else : ?>
-                                        <img src="<?php echo salon_img('/images/placeholder.png'); ?>" alt="<?php the_title(); ?>" class="w-full h-48 md:h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                        <img src="<?php echo salon_img('/images/placeholder.png'); ?>" alt="<?php the_title(); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                     <?php endif; ?>
                                 </div>
-                                <div class="md:w-2/3 p-8 flex flex-col justify-between">
+                                <div class="md:w-2/3 p-6 md:p-8 flex flex-col justify-between">
                                     <div>
-                                        <div class="flex items-center gap-4 mb-4">
+                                        <div class="flex items-center gap-4 mb-3 md:mb-4">
                                             <?php
                                             $categories = get_the_category();
                                             if (!empty($categories)) :
@@ -63,12 +65,12 @@ get_header(); ?>
                                                 <?php salon_icon('calendar', 'w-3 h-3'); ?> <?php echo get_the_date('Y.m.d'); ?>
                                             </div>
                                         </div>
-                                        <h2 class="text-lg font-bold text-gray-800 mb-4 group-hover:text-salon-pink transition-colors line-clamp-2 leading-relaxed"><?php the_title(); ?></h2>
-                                        <div class="text-sm text-gray-500 line-clamp-3 leading-relaxed mb-6">
+                                        <h2 class="text-base md:text-lg font-bold text-gray-800 mb-3 md:mb-4 group-hover:text-salon-pink transition-colors line-clamp-2 leading-relaxed"><?php the_title(); ?></h2>
+                                        <div class="text-[13px] md:text-sm text-gray-500 line-clamp-2 md:line-clamp-3 leading-relaxed mb-4 md:mb-6">
                                             <?php echo wp_trim_words(get_the_excerpt(), 60); ?>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-2 text-xs font-bold text-salon-pink tracking-wider">
+                                    <div class="flex items-center gap-2 text-[10px] md:text-xs font-bold text-salon-pink tracking-wider">
                                         READ MORE <?php salon_icon('arrow-right', 'w-3.5 h-3.5 group-hover:translate-x-2 transition-transform'); ?>
                                     </div>
                                 </div>

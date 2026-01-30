@@ -108,19 +108,21 @@ get_header(); ?>
 
 <div class="bg-gray-50 min-h-screen selection:bg-salon-gold selection:text-white pb-32">
     <!-- Title Section -->
-    <section class="bg-[#3e594b] text-white py-12 md:py-16 text-center">
+    <section class="bg-[#3e594b] text-white py-12 md:py-20 text-center">
         <div class="container-custom">
-            <h1 class="text-3xl md:text-5xl font-bold font-heading tracking-tight">お問い合わせ・無料お見積り</h1>
+            <h1 class="text-fluid-h2 font-bold font-heading tracking-tight">
+                <span class="keep-phrase">お問い合わせ・</span><span class="keep-phrase">無料お見積り</span>
+            </h1>
         </div>
     </section>
 
     <!-- Lead Text Section -->
     <div class="container-custom py-12 text-center">
-        <div class="max-w-3xl mx-auto">
-            <p class="text-gray-500 text-[12px] md:text-[14px] leading-[2] tracking-wide">
-                当日中か翌営業日にはご返答させて頂いております。<br />
-                また、3日以上経過しても返答が無い場合は、メールが正しく送信されていない場合がございます。<br />
-                お手数ですが再度メールを頂くか、080-1017-5318 までお問い合わせ下さい。
+        <div class="max-w-3xl mx-auto px-4">
+            <p class="text-gray-500 text-sm md:text-base leading-loose tracking-wide">
+                <span class="keep-phrase">当日中か翌営業日には</span><span class="keep-phrase">ご返答させて頂いております。</span><br class="hidden sm:block" />
+                <span class="keep-phrase">また、3日以上経過しても返答が無い場合は、</span><span class="keep-phrase">メールが正しく送信されていない</span><span class="keep-phrase">場合がございます。</span><br class="hidden sm:block" />
+                <span class="keep-phrase">お手数ですが再度メールを頂くか、</span><span class="keep-phrase">080-1017-5318 までお問い合わせ下さい。</span>
             </p>
         </div>
     </div>
@@ -150,7 +152,7 @@ get_header(); ?>
                     </div>
                 <?php endif; ?>
 
-                <div class="bg-white rounded-[32px] shadow-xl shadow-gray-200/50 p-6 md:p-16 border border-gray-100">
+                <div class="bg-white rounded-[24px] md:rounded-[32px] shadow-xl shadow-gray-200/50 p-6 sm:p-10 md:p-16 border border-gray-100">
                     <form action="<?php echo esc_url(get_permalink()); ?>#form" method="POST" class="space-y-10" id="form">
                         <?php wp_nonce_field('contact_form_submit', 'contact_nonce'); ?>
                         <input type="text" name="website_hp" style="display:none !important" tabindex="-1" autocomplete="off">

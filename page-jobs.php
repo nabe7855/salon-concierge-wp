@@ -110,16 +110,16 @@ get_header(); ?>
 
 <div class="bg-gray-50/50 min-h-screen font-sans text-gray-700">
     <!-- --- Hero Section: Green Theme --- -->
-    <section class="relative overflow-hidden bg-[#3a5f56] pt-20 pb-16 md:pt-32 md:pb-24">
+    <section class="relative overflow-hidden bg-[#3a5f56] pt-16 pb-12 md:pt-32 md:pb-24">
         <div class="absolute inset-0 bg-black/10 z-0"></div>
-        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div class="container mx-auto px-4 relative z-10 text-center text-white">
-            <h1 class="text-2xl md:text-5xl font-bold font-heading mb-4 md:mb-6 tracking-wide">
-                採用情報
+        <div class="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="container-custom relative z-10 text-center text-white px-4">
+            <h1 class="text-3xl md:text-5xl font-bold font-heading mb-4 md:mb-6 tracking-wide">
+                <span class="keep-phrase">採用情報</span>
             </h1>
-            <p class="text-white/80 max-w-2xl mx-auto leading-relaxed font-light">
-                あなたのライフスタイルに合わせた働き方を。<br />
-                未経験からでも安心のサポート体制で、一緒に成長しませんか？
+            <p class="text-white/80 max-w-2xl mx-auto leading-relaxed font-light text-sm md:text-base px-2">
+                <span class="keep-phrase">あなたのライフスタイルに</span><span class="keep-phrase">合わせた働き方を。</span><br class="hidden sm:block" />
+                <span class="keep-phrase">未経験からでも安心の</span><span class="keep-phrase">サポート体制で、</span><br class="sm:hidden" /><span class="keep-phrase">一緒に成長しませんか？</span>
             </p>
         </div>
     </section>
@@ -137,16 +137,16 @@ get_header(); ?>
                 </div>
 
                 <!-- Tabs -->
-                <div class="flex flex-wrap justify-center gap-4 mb-12">
-                    <button class="job-tab-btn flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all shadow-sm border bg-salon-gold text-white border-salon-gold scale-105" data-target="job-time">
+                <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-10 md:mb-12">
+                    <button class="job-tab-btn flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold transition-all shadow-sm border bg-salon-gold text-white border-salon-gold text-xs md:text-base scale-105" data-target="job-time">
                         <?php salon_icon('clock', 'w-4 h-4'); ?>
                         自分の時間
                     </button>
-                    <button class="job-tab-btn flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all shadow-sm border bg-white text-gray-500 border-gray-200 hover:bg-gray-50" data-target="job-team">
+                    <button class="job-tab-btn flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold transition-all shadow-sm border bg-white text-gray-500 border-gray-200 hover:bg-gray-50 text-xs md:text-base" data-target="job-team">
                         <?php salon_icon('users', 'w-4 h-4'); ?>
                         支え合える
                     </button>
-                    <button class="job-tab-btn flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all shadow-sm border bg-white text-gray-500 border-gray-200 hover:bg-gray-50" data-target="job-beginner">
+                    <button class="job-tab-btn flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold transition-all shadow-sm border bg-white text-gray-500 border-gray-200 hover:bg-gray-50 text-xs md:text-base" data-target="job-beginner">
                         <?php salon_icon('shield-check', 'w-4 h-4'); ?>
                         未経験歓迎
                     </button>
@@ -161,7 +161,7 @@ get_header(); ?>
                         </div>
                         <div class="md:w-1/2 space-y-4">
                             <h3 class="text-xl md:text-2xl font-bold text-gray-800">
-                                自分の時間を大切にできる<br /><span class="text-salon-gold">なので安心</span>
+                                <span class="keep-phrase">自分の時間を</span><span class="keep-phrase">大切にできる</span><br class="hidden sm:block" /><span class="text-salon-gold keep-phrase">なので安心</span>
                             </h3>
                             <p class="text-gray-600 leading-relaxed text-sm">
                                 お仕事は在宅勤務のオペレーターとなり、アルバイト・業務委託は週3日から、正社員・契約社員は週休2日制で、自分に合う勤務シフトから選ぶことが可能です。メンズエステサロン専門の電話受付や事務作業が主な仕事になり、体力的にも長く続けられます。言葉遣いや接し方などの電話応対スキルやマナーに加え、事務作業やパソコンスキルなど総合的なスキルを身につけることができます。

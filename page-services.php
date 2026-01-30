@@ -6,21 +6,21 @@ get_header(); ?>
 
 <div class="bg-salon-light/30 min-h-screen font-sans">
     <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-botanical-primary pt-24 pb-20 md:pt-32 md:pb-24">
+    <section class="relative overflow-hidden bg-botanical-primary pt-16 pb-12 md:pt-32 md:pb-24">
         <div class="absolute inset-0 bg-black/10 z-0"></div>
-        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-        <div class="container mx-auto px-4 max-w-6xl relative z-10 text-center text-white">
-            <h1 class="text-3xl md:text-5xl font-bold font-heading mb-8 leading-tight tracking-wide flex flex-col items-center">
-                <span class="whitespace-nowrap">最高水準の品質のサービスを</span>
-                <span class="whitespace-nowrap"><span class="text-salon-gold">業界最安値</span>でお届けします。</span>
+        <div class="container-custom relative z-10 text-center text-white">
+            <h1 class="text-fluid-h2 font-bold font-heading mb-8 leading-tight tracking-wide flex flex-col items-center">
+                <span class="keep-phrase">最高水準の品質のサービスを</span>
+                <span class="keep-phrase"><span class="text-salon-gold">業界最安値</span>でお届けします。</span>
             </h1>
-            <p class="text-white/80 max-w-2xl mx-auto mb-16 leading-relaxed text-sm md:text-base font-light">
-                メンズエステ経営の課題を、運営サポートとITシステムの力で包括的に解決。<br class="hidden md:block" />
-                オーナー様は、本来の「経営」と「キャストマネジメント」に集中してください。
+            <p class="text-white/80 max-w-2xl mx-auto mb-12 md:mb-16 leading-relaxed text-sm md:text-base font-light px-4">
+                <span class="keep-phrase">メンズエステ経営の課題を、</span><span class="keep-phrase">運営サポートとITシステムの力で</span><span class="keep-phrase">包括的に解決。</span><br class="hidden md:block" />
+                <span class="keep-phrase">オーナー様は、本来の「経営」と</span><span class="keep-phrase">「キャストマネジメント」に</span><span class="keep-phrase">集中してください。</span>
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left relative z-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-left relative z-20">
                 <!-- STEP 1 -->
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all">
                     <span class="block text-white/60 text-xs font-bold tracking-widest mb-2">STEP 1</span>
@@ -53,13 +53,17 @@ get_header(); ?>
                     <span class="block text-white/60 text-xs font-bold tracking-widest mb-2">STEP 3</span>
                     <h3 class="text-lg font-bold mb-2">成約報酬</h3>
                     <div class="flex items-end gap-1 mb-4">
-                        <span class="text-4xl font-bold font-heading">1,000</span>
+                        <span class="text-3xl md:text-4xl font-bold font-heading">1,000</span>
                         <span class="text-sm opacity-80 pb-1">円/件</span>
                     </div>
-                    <p class="text-[11px] opacity-70 leading-relaxed border-t border-white/20 pt-3">成果が出た分だけのお支払い。<br />問合せやキャンセルは含みません。<br /><span class="text-salon-gold font-bold mt-1 block">※月間500件以上で割引あり</span></p>
+                    <p class="text-[11px] opacity-70 leading-relaxed border-t border-white/20 pt-3">
+                        <span class="keep-phrase">成果が出た分だけのお支払い。</span><br class="hidden sm:block" />
+                        <span class="keep-phrase">問合せやキャンセルは含みません。</span><br />
+                        <span class="text-salon-gold font-bold mt-1 block keep-phrase">※月間500件以上で割引あり</span>
+                    </p>
                 </div>
             </div>
-            <p class="text-white/60 text-[10px] mt-8 text-right px-4">※価格はすべて税抜き表示です。</p>
+            <p class="text-white/60 text-[10px] mt-8 text-center md:text-right px-4">※価格はすべて税抜き表示です。</p>
         </div>
     </section>
 
