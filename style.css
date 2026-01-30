@@ -1,0 +1,14 @@
+/*
+Theme Name: Salon Concierge Theme
+Theme URI: https://salon-concierge.jp
+Description: A custom WordPress theme for Salon Concierge, migrated from Next.js.
+Version: 1.0.0
+Author: Antigravity
+Author URI: https://google.com
+Text Domain: salon-concierge
+*/
+
+/* 
+  Tailwind v4 configuration and custom components have been moved to header.php 
+  to ensure the @tailwindcss/browser script can process them correctly.
+*/
