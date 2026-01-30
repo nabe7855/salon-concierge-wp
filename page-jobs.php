@@ -2,6 +2,110 @@
 /**
  * Template Name: Jobs Page
  */
+
+// Form Submission Handling
+$form_success = false;
+$form_errors = array();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
+    // Nonce verification
+    if (!wp_verify_nonce($_POST['recruit_nonce'], 'recruit_form_submit')) {
+        $form_errors[] = '不正な送信です。もう一度お試しください。';
+    }
+
+    // Honeypot check
+    if (!empty($_POST['website_hp'])) {
+        exit; // Spam bot
+    }
+
+    if (empty($form_errors)) {
+        // Collect and sanitize data
+        $name            = sanitize_text_field($_POST['name']);
+        $age             = sanitize_text_field($_POST['age']);
+        $email           = sanitize_email($_POST['email']);
+        $phone           = sanitize_text_field($_POST['phone']);
+        $desired_hours   = sanitize_text_field($_POST['desired_hours']);
+        $prefecture      = sanitize_text_field($_POST['prefecture']);
+        $gender          = sanitize_text_field($_POST['gender']);
+        $employment_type = sanitize_text_field($_POST['employment_type']);
+        $desired_days    = sanitize_text_field($_POST['desired_days']);
+        $comment         = sanitize_textarea_field($_POST['comment']);
+
+        // Validation
+        if (empty($name))            $form_errors[] = 'お名前を入力してください。';
+        if (empty($age))             $form_errors[] = '年齢を入力してください。';
+        if (!is_email($email))       $form_errors[] = '有効なメールアドレスを入力してください。';
+        if (empty($phone))           $form_errors[] = 'お電話番号を入力してください。';
+        if (empty($desired_hours))   $form_errors[] = '希望勤務時間を選択してください。';
+        if (empty($prefecture))      $form_errors[] = '都道府県を選択してください。';
+        if (empty($gender))          $form_errors[] = '性別を選択してください。';
+        if (empty($employment_type)) $form_errors[] = '雇用形態を選択してください。';
+
+        if (empty($form_errors)) {
+            // Save to Database
+            $post_id = wp_insert_post(array(
+                'post_title'   => $name,
+                'post_type'    => 'application',
+                'post_status'  => 'publish',
+            ));
+
+            if ($post_id) {
+                update_post_meta($post_id, 'name', $name);
+                update_post_meta($post_id, 'age', $age);
+                update_post_meta($post_id, 'email', $email);
+                update_post_meta($post_id, 'phone', $phone);
+                update_post_meta($post_id, 'desired_hours', $desired_hours);
+                update_post_meta($post_id, 'prefecture', $prefecture);
+                update_post_meta($post_id, 'gender', $gender);
+                update_post_meta($post_id, 'employment_type', $employment_type);
+                update_post_meta($post_id, 'desired_days', $desired_days);
+                update_post_meta($post_id, 'comment', $comment);
+            }
+
+            // Prepare Email to Admin
+            $admin_email = get_option('admin_email');
+            $subject = '【求人応募】' . $name . '様よりエントリー';
+            
+            $body = "求人応募フォームよりエントリーが届きました。\n\n";
+            $body .= "--------------------------------------------------\n";
+            $body .= "【お名前】: {$name}\n";
+            $body .= "【年齢】: {$age} 歳\n";
+            $body .= "【メールアドレス】: {$email}\n";
+            $body .= "【お電話番号】: {$phone}\n";
+            $body .= "【性別】: " . ($gender === 'male' ? '男性' : '女性') . "\n";
+            $body .= "【お住まいの都道府県】: {$prefecture}\n";
+            $body .= "【雇用形態】: {$employment_type}\n";
+            $body .= "【希望勤務時間】: {$desired_hours}\n";
+            $body .= "【希望勤務日数】: 週 {$desired_days} 日\n\n";
+            $body .= "【コメント欄】:\n{$comment}\n";
+            $body .= "--------------------------------------------------\n";
+
+            $headers = array('Content-Type: text/plain; charset=UTF-8');
+            $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $admin_email . '>';
+            $headers[] = 'Reply-To: ' . $email;
+
+            // Send to Admin
+            $mail_sent = wp_mail($admin_email, $subject, $body, $headers);
+
+            if ($mail_sent) {
+                // Auto-reply to Applicant
+                $reply_subject = '【サロンコンシェルジュ】求人へのご応募ありがとうございます';
+                $reply_body = "{$name} 様\n\n";
+                $reply_body .= "この度は、弊社の求人にご応募いただき誠にありがとうございます。\n";
+                $reply_body .= "以下の内容にてエントリーを受け付けいたしました。\n\n";
+                $reply_body .= "追って担当者より、面接日程等のご連絡をさせていただきます。\n";
+                $reply_body .= "今しばらくお待ちいただけますと幸いです。\n\n";
+                $reply_body .= $body;
+
+                wp_mail($email, $reply_subject, $reply_body, $headers);
+                $form_success = true;
+            } else {
+                $form_errors[] = '送信に失敗しました。お手数ですが、お電話にてお問い合わせください。';
+            }
+        }
+    }
+}
+
 get_header(); ?>
 
 <div class="bg-gray-50/50 min-h-screen font-sans text-gray-700">
@@ -268,147 +372,174 @@ get_header(); ?>
                     <p class="text-gray-400 text-xs tracking-widest uppercase">Entry</p>
                 </div>
 
-                <div class="bg-white rounded-[32px] p-8 md:p-12 shadow-lg border border-gray-100">
-                    <form action="#" method="POST" class="space-y-8">
-                        <!-- お名前 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">お名前</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
-                            </div>
-                            <input type="text" name="name" required placeholder="山田 太郎" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                <?php if ($form_success): ?>
+                    <div class="bg-[#3a5f56] text-white p-12 rounded-[32px] text-center shadow-xl animate-fade-in">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <?php salon_icon('check', 'w-8 h-8 text-white'); ?>
                         </div>
-
-                        <!-- 年齢 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">年齢</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
-                            </div>
-                            <input type="text" name="age" required placeholder="25" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                        <h2 class="text-2xl font-bold mb-4">エントリーありがとうございます</h2>
+                        <p class="text-white/80 leading-relaxed">
+                            弊社求人へのご応募を受け付けいたしました。<br />
+                            追って担当者より、面接日程等のご連絡をさせていただきます。
+                        </p>
+                        <div class="mt-8">
+                            <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-block border border-white/30 text-white px-8 py-3 rounded-full hover:bg-white/10 transition-all font-bold">トップページに戻る</a>
                         </div>
-
-                        <!-- メールアドレス -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">メールアドレス</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
-                            </div>
-                            <input type="email" name="email" required placeholder="example@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                    </div>
+                <?php else: ?>
+                    <?php if (!empty($form_errors)): ?>
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-10">
+                            <ul class="list-disc list-inside text-red-600 text-sm space-y-1">
+                                <?php foreach ($form_errors as $err) echo "<li>$err</li>"; ?>
+                            </ul>
                         </div>
+                    <?php endif; ?>
 
-                        <!-- 電話番号 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">電話番号</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                    <div class="bg-white rounded-[32px] p-8 md:p-12 shadow-lg border border-gray-100">
+                        <form action="<?php echo esc_url(get_permalink()); ?>#form" method="POST" class="space-y-8">
+                            <?php wp_nonce_field('recruit_form_submit', 'recruit_nonce'); ?>
+                            <input type="text" name="website_hp" style="display:none !important" tabindex="-1" autocomplete="off">
+                            
+                            <!-- お名前 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">お名前</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <input type="text" name="name" required value="<?php echo isset($_POST['name']) ? esc_attr($_POST['name']) : ''; ?>" placeholder="山田 太郎" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
-                            <input type="tel" name="phone" required placeholder="090-0000-0000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
-                        </div>
 
-                        <!-- 希望勤務時間 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">希望勤務時間</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                            <!-- 年齢 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">年齢</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <input type="text" name="age" required value="<?php echo isset($_POST['age']) ? esc_attr($_POST['age']) : ''; ?>" placeholder="25" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-                                <?php foreach(["9：30～19：00", "14：00～23：00", "19：00～2：00", "19：00～4：00", "19：00～6：00"] as $time): ?>
-                                    <label class="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100 group">
-                                        <input type="radio" name="desired_hours" value="<?php echo $time; ?>" class="w-4 h-4 accent-[#3a5f56]">
-                                        <span class="text-sm text-gray-600 font-mono group-hover:text-gray-900"><?php echo $time; ?></span>
-                                    </label>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
 
-                        <!-- お住まいの都道府県 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">お住まいの都道府県</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                            <!-- メールアドレス -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">メールアドレス</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <input type="email" name="email" required value="<?php echo isset($_POST['email']) ? esc_attr($_POST['email']) : ''; ?>" placeholder="example@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
-                            <select name="prefecture" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all">
-                                <option value="">選択してください</option>
-                                <?php foreach(["東京都", "神奈川県", "千葉県", "埼玉県", "大阪府", "愛知県", "福岡県", "その他"] as $pref): ?>
-                                    <option><?php echo $pref; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
 
-                        <!-- 性別 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">性別</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                            <!-- 電話番号 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">電話番号</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <input type="tel" name="phone" required value="<?php echo isset($_POST['phone']) ? esc_attr($_POST['phone']) : ''; ?>" placeholder="090-0000-0000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
-                            <div class="flex gap-8 pt-2">
-                                <label class="flex items-center gap-3 cursor-pointer">
-                                    <input type="radio" name="gender" value="male" class="w-5 h-5 accent-[#3a5f56]">
-                                    <span class="text-sm text-gray-600">男性</span>
-                                </label>
-                                <label class="flex items-center gap-3 cursor-pointer">
-                                    <input type="radio" name="gender" value="female" checked class="w-5 h-5 accent-[#3a5f56]">
-                                    <span class="text-sm text-gray-600">女性</span>
-                                </label>
-                            </div>
-                        </div>
 
-                        <!-- 雇用形態 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">雇用形態</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                            <!-- 希望勤務時間 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">希望勤務時間</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                                    <?php foreach(["9：30～19：00", "14：00～23：00", "19：00～2：00", "19：00～4：00", "19：00～6：00"] as $time): ?>
+                                        <label class="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100 group">
+                                            <input type="radio" name="desired_hours" value="<?php echo $time; ?>" <?php checked(isset($_POST['desired_hours']) ? $_POST['desired_hours'] : '', $time); ?> class="w-4 h-4 accent-[#3a5f56]">
+                                            <span class="text-sm text-gray-600 font-mono group-hover:text-gray-900"><?php echo $time; ?></span>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
-                                <?php foreach(["正社員", "契約社員", "アルバイト", "業務委託"] as $type): ?>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="radio" name="employment_type" value="<?php echo $type; ?>" checked class="w-4 h-4 accent-[#3a5f56]">
-                                        <span class="text-sm text-gray-600"><?php echo $type; ?></span>
-                                    </label>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
 
-                        <!-- 希望勤務日数 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">希望勤務日数</label>
-                                <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-sm text-gray-600">週</span>
-                                <select name="desired_days" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none w-24">
-                                    <?php for($i=1; $i<=7; $i++): ?>
-                                        <option value="<?php echo $i; ?>" <?php echo $i==5 ? 'selected' : ''; ?>><?php echo $i; ?></option>
-                                    <?php endfor; ?>
+                            <!-- お住まいの都道府県 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">お住まいの都道府県</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <select name="prefecture" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all">
+                                    <option value="">選択してください</option>
+                                    <?php foreach(["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"] as $pref): ?>
+                                        <option <?php selected(isset($_POST['prefecture']) ? $_POST['prefecture'] : '', $pref); ?>><?php echo $pref; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
-                                <span class="text-sm text-gray-600">日</span>
                             </div>
-                        </div>
 
-                        <!-- コメント欄 -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <label class="text-sm font-bold text-gray-700">コメント欄</label>
-                                <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">任意</span>
+                            <!-- 性別 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">性別</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <div class="flex gap-8 pt-2">
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="gender" value="male" <?php checked(isset($_POST['gender']) ? $_POST['gender'] : '', 'male'); ?> class="w-5 h-5 accent-[#3a5f56]">
+                                        <span class="text-sm text-gray-600">男性</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="gender" value="female" <?php checked(isset($_POST['gender']) ? $_POST['gender'] : 'female', 'female'); ?> class="w-5 h-5 accent-[#3a5f56]">
+                                        <span class="text-sm text-gray-600">女性</span>
+                                    </label>
+                                </div>
                             </div>
-                            <textarea name="comment" rows="5" placeholder="ご質問やご要望があればご記入ください" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300"></textarea>
-                        </div>
 
-                        <!-- プライバシーポリシー -->
-                        <div class="pt-4 text-center text-[10px] text-gray-400 leading-relaxed">
-                            <p class="font-bold text-gray-500 mb-1 leading-none uppercase tracking-tighter">Privacy Policy</p>
-                            <p>ご入力いただいた個人情報は、採用選考およびお問合せへの回答の目的のみに利用いたします。<br />内容に同意の上、送信ボタンを押してください。</p>
-                        </div>
+                            <!-- 雇用形態 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">雇用形態</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+                                    <?php foreach(["正社員", "契約社員", "アルバイト", "業務委託"] as $type): ?>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="employment_type" value="<?php echo $type; ?>" <?php checked(isset($_POST['employment_type']) ? $_POST['employment_type'] : '正社員', $type); ?> class="w-4 h-4 accent-[#3a5f56]">
+                                            <span class="text-sm text-gray-600"><?php echo $type; ?></span>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
 
-                        <div class="pt-6 text-center">
-                            <button type="submit" class="bg-[#3a5f56] text-white py-4 px-16 rounded-full font-bold shadow-xl hover:bg-opacity-90 transition-all transform hover:-translate-y-1">
-                                上記の内容で応募する
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                            <!-- 希望勤務日数 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">希望勤務日数</label>
+                                    <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-sm text-gray-600">週</span>
+                                    <select name="desired_days" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none w-24">
+                                        <?php for($i=1; $i<=7; $i++): ?>
+                                            <option value="<?php echo $i; ?>" <?php selected(isset($_POST['desired_days']) ? $_POST['desired_days'] : 5, $i); ?>><?php echo $i; ?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    <span class="text-sm text-gray-600">日</span>
+                                </div>
+                            </div>
+
+                            <!-- コメント欄 -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <label class="text-sm font-bold text-gray-700">コメント欄</label>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">任意</span>
+                                </div>
+                                <textarea name="comment" rows="5" placeholder="ご質問やご要望があればご記入ください" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300"><?php echo isset($_POST['comment']) ? esc_textarea($_POST['comment']) : ''; ?></textarea>
+                            </div>
+
+                            <!-- プライバシーポリシー -->
+                            <div class="pt-4 text-center text-[10px] text-gray-400 leading-relaxed">
+                                <p class="font-bold text-gray-500 mb-1 leading-none uppercase tracking-tighter">Privacy Policy</p>
+                                <p>ご入力いただいた個人情報は、採用選考およびお問合せへの回答の目的のみに利用いたします。<br />内容に同意の上、送信ボタンを押してください。</p>
+                            </div>
+
+                            <div class="pt-6 text-center">
+                                <button type="submit" class="bg-[#3a5f56] text-white py-4 px-16 rounded-full font-bold shadow-xl hover:bg-opacity-90 transition-all transform hover:-translate-y-1">
+                                    上記の内容で応募する
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                <?php endif; ?>
             </div>
         </section>
     </div>
