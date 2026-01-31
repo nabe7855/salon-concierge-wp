@@ -2,47 +2,46 @@
 
 <div class="font-sans text-botanical-text bg-botanical-bg">
     <!-- Hero Section -->
-    <section class="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] flex items-center pt-16 pb-8 md:pt-24 md:pb-20 overflow-hidden">
+    <section class="relative min-h-[80vh] md:min-h-[90vh] flex items-center pt-20 pb-4 md:pb-20 overflow-hidden">
         <!-- Background Image & Overlay -->
         <div class="absolute inset-0 z-0">
             <picture>
                 <!-- Mobile optimized image -->
                 <source media="(max-width: 767px)" srcset="<?php echo salon_img('/images/images/トップページバナー.png'); ?>">
                 <!-- Desktop optimized image -->
-                <img src="<?php echo salon_img('/images/images/hero-bg-v2.png'); ?>" alt="Call Center" class="w-full h-full object-cover object-right md:object-center">
+                <img src="<?php echo salon_img('/images/images/hero-bg-v2.png'); ?>" alt="Call Center" class="w-full h-full object-contain object-top md:object-cover md:object-center lg:object-[center_right]">
             </picture>
+            <!-- Mobile-only background color fill -->
             <div class="absolute inset-0 bg-botanical-bg -z-10 md:hidden"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-white/80 to-white/100 md:bg-gradient-to-r md:from-white/95 md:via-white/80 md:to-transparent"></div>
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-50/100 via-gray-50/70 to-transparent md:from-white/95 md:via-white/80 md:via-white/60 md:to-transparent"></div>
         </div>
 
         <div class="container-custom relative z-10 w-full">
-            <div class="max-w-2xl animate-fade-in text-center md:text-left">
+            <div class="max-w-2xl lg:ml-0 animate-fade-in text-center md:text-left">
                 <span class="inline-flex items-center gap-2 bg-botanical-primary/90 text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-widest shadow-sm mb-6">
                     <?php salon_icon('leaf', 'fill-white stroke-none w-[12px] h-[12px]'); ?>
                     <span class="keep-phrase">業界No.1の応答率・継続率</span>
                 </span>
 
-                <h2 class="text-fluid-h1 font-bold font-heading text-botanical-primary leading-[1.2] md:leading-[1.1] mb-6 drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
-                    <span class="keep-phrase">メンズエステ専門</span><br class="md:hidden" />
-                    <span class="relative inline-block mt-2">
-                        <span class="relative z-10 keep-phrase">電話代行サービス</span>
-                        <span class="absolute bottom-1 left-0 w-full h-3 md:h-4 bg-[#d4a373]/30 -rotate-1 z-0"></span>
-                    </span>
+                <h2 class="text-3xl md:text-5xl lg:text-7xl font-bold font-heading text-botanical-primary leading-[1.2] md:leading-[1.1] mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                    <span class="keep-phrase">メンズエステ専門</span><br />
+                    <span class="text-botanical-cta keep-phrase">電話代行サービス</span>
                 </h2>
 
-                <p class="text-base sm:text-lg md:text-xl font-medium text-gray-800 leading-relaxed mb-10 max-w-xl mx-auto md:mx-0 drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-                    <span class="keep-phrase">お客様を逃さない</span><span class="text-botanical-primary font-bold keep-phrase">24時間365日対応</span>。<br class="hidden sm:block" />
+                <p class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed mb-10 max-w-xl mx-auto md:mx-0 drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+                    <span class="keep-phrase">お客様を逃さない</span><span class="text-botanical-primary font-bold keep-phrase">24時間365日対応</span>。<br />
                     <span class="keep-phrase">受付業務はプロに任せて</span>、<span class="keep-phrase">本業のサロン経営に集中できます</span>。
                 </p>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-10">
-                    <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn-cta text-lg px-8 py-4 sm:px-10 shadow-xl hover:shadow-2xl ring-4 ring-botanical-cta/20 transform hover:-translate-y-1 transition-all w-full sm:w-auto">
+                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-8">
+                    <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn-cta text-lg px-10 py-4 shadow-xl hover:shadow-2xl ring-4 ring-botanical-cta/20 transform hover:-translate-y-1 transition-all w-full sm:w-auto">
                         今すぐ無料相談する
                         <?php salon_icon('arrow-right', 'w-5 h-5'); ?>
                     </a>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-5">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-5 mt-2">
                     <!-- Medals -->
                     <div class="flex flex-col items-center justify-center w-[84px] h-[84px] md:w-28 md:h-28 rounded-full bg-gradient-to-br from-[#FFFDE7] via-[#FFF59D] to-[#FBC02D] border-[3px] md:border-[4px] border-[#fff] shadow-[0_6px_10px_rgba(0,0,0,0.15),0_0_0_1px_rgba(251,192,45,1)] relative transform hover:scale-105 transition-transform duration-300">
                         <div class="absolute inset-2 rounded-full border border-[#F9A825]/30"></div>
@@ -72,7 +71,6 @@
             </div>
         </div>
     </section>
-
     <!-- Problems Section -->
     <section class="bg-white py-16 md:py-24 border-b border-gray-100 relative overflow-hidden">
         <div class="container-custom relative z-10">
@@ -302,8 +300,8 @@
                     <?php endforeach; ?>
                 </div>
                 <div class="mt-12 text-center">
-                    <a href="#" class="inline-flex items-center gap-2 text-[#d4a373] font-bold hover:gap-4 transition-all">
-                        詳しい流れを見る <?php salon_icon('chevron-right', 'w-4 h-4'); ?>
+                    <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center gap-2 text-[#d4a373] font-bold hover:gap-4 transition-all">
+                        詳しく相談する <?php salon_icon('chevron-right', 'w-4 h-4'); ?>
                     </a>
                 </div>
             </div>
