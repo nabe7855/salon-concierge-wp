@@ -92,102 +92,136 @@
         .hover\:pause:hover {
             animation-play-state: paused;
         }
+
+        /* Fixed Header & Admin Bar Adjustments */
+        #fixed-top-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .admin-bar #fixed-top-container {
+            top: 32px;
+        }
+
+        @media screen and (max-width: 782px) {
+            .admin-bar #fixed-top-container {
+                top: 46px;
+            }
+        }
+
+        /* Adjust site content to start below fixed header */
+        .site-content-spacer {
+            height: 104px; /* Default height */
+        }
+        @media screen and (max-width: 640px) {
+            .site-content-spacer {
+                height: 100px;
+            }
+        }
     </style>
 </head>
 <body <?php body_class('min-h-screen flex flex-col font-sans overflow-x-hidden bg-botanical-bg'); ?>>
     <?php wp_body_open(); ?>
 
-    <!-- Top Banner -->
-    <div class="bg-botanical-primary text-white text-[10px] md:text-xs py-1.5 text-center px-4">
-        <span class="keep-phrase">メンズエステ専門電話代行</span> | <span class="keep-phrase">業界最高水準の応答率と契約継続率</span>
+    <div id="fixed-top-container">
+        <!-- Top Banner -->
+        <div class="bg-botanical-primary text-white text-[10px] md:text-xs py-1.5 text-center px-4 shadow-sm">
+            <span class="keep-phrase">メンズエステ専門電話代行</span> | <span class="keep-phrase">業界最高水準の応答率と契約継続率</span>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-white/95 backdrop-blur-md border-b border-sage-100 shadow-sm w-full">
+            <div class="container-custom py-3 flex items-center justify-between">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 group shrink-0">
+                    <div class="w-10 h-10 bg-botanical-primary rounded-lg flex items-center justify-center text-white shadow-md group-hover:bg-botanical-primary-light transition-colors">
+                        <span class="font-heading font-bold text-xl tracking-tighter">S</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-botanical-primary leading-none font-heading tracking-wide">
+                            <span class="keep-phrase">SalonConcierge</span>
+                        </h1>
+                        <span class="text-[9px] md:text-[10px] text-gray-400 tracking-wider font-medium opacity-80 uppercase block mt-1">
+                            Phone Reception Services
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex items-center gap-4 xl:gap-6">
+                    <?php
+                    $nav_links = array(
+                        array('name' => 'トップ', 'path' => '/'),
+                        array('name' => '料金・詳細', 'path' => '/services'),
+                        array('name' => 'システム', 'path' => '/system'),
+                        array('name' => 'Q&A', 'path' => '/faq'),
+                        array('name' => '問い合わせ', 'path' => '/contact'),
+                        array('name' => '採用情報', 'path' => '/jobs'),
+                    );
+                    foreach ($nav_links as $link) :
+                        $is_active = (is_front_page() && $link['path'] == '/') || (strpos($_SERVER['REQUEST_URI'], $link['path']) !== false && $link['path'] != '/');
+                    ?>
+                        <a href="<?php echo esc_url(home_url($link['path'])); ?>" class="whitespace-nowrap <?php echo $is_active ? 'text-botanical-primary font-bold decoration-2' : 'text-gray-600 hover:text-botanical-primary'; ?> transition-all text-sm xl:text-base">
+                            <?php echo esc_html($link['name']); ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
+
+                <!-- CTA Group (Desktop) -->
+                <div class="hidden md:flex flex-col items-end gap-1 shrink-0">
+                    <a href="#" class="bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-1.5 rounded-full text-[10px] xl:text-xs font-bold flex items-center gap-2 transition-all shadow-sm">
+                        <?php salon_icon('message-circle', 'w-3 h-3 xl:w-4 xl:h-4'); ?>
+                        LINEでお問い合わせ
+                    </a>
+                    <div class="flex items-center gap-2 text-[9px] xl:text-[10px] text-gray-400">
+                        <?php salon_icon('clock', 'w-2.5 h-2.5 xl:w-3 xl:h-3'); ?>
+                        受付: 9:30 - 翌6:00
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-toggle" class="lg:hidden p-2 text-sage-800 focus:outline-none" aria-label="Menu">
+                    <?php salon_icon('menu', 'w-6 h-6'); ?>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-sage-100 p-6 absolute top-full left-0 w-full shadow-2xl animate-fade-in">
+                <div class="flex flex-col gap-6">
+                    <?php 
+                    $mobile_nav_links = array(
+                        array('name' => 'トップ', 'path' => '/'),
+                        array('name' => 'サービス詳細・料金', 'path' => '/services'),
+                        array('name' => 'システム詳細', 'path' => '/system'),
+                        array('name' => 'よくあるご質問', 'path' => '/faq'),
+                        array('name' => 'お問い合わせ', 'path' => '/contact'),
+                        array('name' => '求人情報', 'path' => '/jobs'),
+                        array('name' => '会社概要', 'path' => '/company'),
+                        array('name' => 'コラム', 'path' => '/column'),
+                    );
+                    foreach ($mobile_nav_links as $link) : ?>
+                        <a href="<?php echo esc_url(home_url($link['path'])); ?>" class="text-gray-800 text-lg font-bold py-1 border-b border-sage-50 flex items-center justify-between">
+                            <?php echo esc_html($link['name']); ?>
+                            <?php salon_icon('chevron-right', 'w-4 h-4 text-sage-300'); ?>
+                        </a>
+                    <?php endforeach; ?>
+                    <div class="pt-6 pb-4 flex flex-col gap-4">
+                        <a href="tel:080-1017-5318" class="flex items-center justify-center gap-3 bg-sage-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-sage-500/20 active:scale-95 transition-transform">
+                            <?php salon_icon('phone', 'w-5 h-5'); ?> 080-1017-5318
+                        </a>
+                        <a href="#" class="flex items-center justify-center gap-3 bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#06C755]/20 active:scale-95 transition-transform">
+                            <?php salon_icon('message-circle', 'w-5 h-5'); ?> LINE 24時間受付
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
     </div>
 
-    <!-- Header -->
-    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-sage-100 shadow-sm w-full">
-        <div class="container-custom py-3 flex items-center justify-between">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 group shrink-0">
-                <div class="w-10 h-10 bg-botanical-primary rounded-lg flex items-center justify-center text-white shadow-md group-hover:bg-botanical-primary-light transition-colors">
-                    <span class="font-heading font-bold text-xl tracking-tighter">S</span>
-                </div>
-                <div class="flex flex-col">
-                    <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-botanical-primary leading-none font-heading tracking-wide">
-                        <span class="keep-phrase">SalonConcierge</span>
-                    </h1>
-                    <span class="text-[9px] md:text-[10px] text-gray-400 tracking-wider font-medium opacity-80 uppercase block mt-1">
-                        Phone Reception Services
-                    </span>
-                </div>
-            </a>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-4 xl:gap-6">
-                <?php
-                $nav_links = array(
-                    array('name' => 'トップ', 'path' => '/'),
-                    array('name' => '料金・詳細', 'path' => '/services'),
-                    array('name' => 'システム', 'path' => '/system'),
-                    array('name' => 'Q&A', 'path' => '/faq'),
-                    array('name' => '問い合わせ', 'path' => '/contact'),
-                    array('name' => '採用情報', 'path' => '/jobs'),
-                );
-                foreach ($nav_links as $link) :
-                    $is_active = (is_front_page() && $link['path'] == '/') || (strpos($_SERVER['REQUEST_URI'], $link['path']) !== false && $link['path'] != '/');
-                ?>
-                    <a href="<?php echo esc_url(home_url($link['path'])); ?>" class="whitespace-nowrap <?php echo $is_active ? 'text-botanical-primary font-bold decoration-2' : 'text-gray-600 hover:text-botanical-primary'; ?> transition-all text-sm xl:text-base">
-                        <?php echo esc_html($link['name']); ?>
-                    </a>
-                <?php endforeach; ?>
-            </nav>
-
-            <!-- CTA Group (Desktop) -->
-            <div class="hidden md:flex flex-col items-end gap-1 shrink-0">
-                <a href="#" class="bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-1.5 rounded-full text-[10px] xl:text-xs font-bold flex items-center gap-2 transition-all shadow-sm">
-                    <?php salon_icon('message-circle', 'w-3 h-3 xl:w-4 xl:h-4'); ?>
-                    LINEでお問い合わせ
-                </a>
-                <div class="flex items-center gap-2 text-[9px] xl:text-[10px] text-gray-400">
-                    <?php salon_icon('clock', 'w-2.5 h-2.5 xl:w-3 xl:h-3'); ?>
-                    受付: 9:30 - 翌6:00
-                </div>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-toggle" class="lg:hidden p-2 text-sage-800 focus:outline-none" aria-label="Menu">
-                <?php salon_icon('menu', 'w-6 h-6'); ?>
-            </button>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-sage-100 p-6 absolute top-full left-0 w-full shadow-2xl animate-fade-in">
-            <div class="flex flex-col gap-6">
-                <?php 
-                $mobile_nav_links = array(
-                    array('name' => 'トップ', 'path' => '/'),
-                    array('name' => 'サービス詳細・料金', 'path' => '/services'),
-                    array('name' => 'システム詳細', 'path' => '/system'),
-                    array('name' => 'よくあるご質問', 'path' => '/faq'),
-                    array('name' => 'お問い合わせ', 'path' => '/contact'),
-                    array('name' => '求人情報', 'path' => '/jobs'),
-                    array('name' => '会社概要', 'path' => '/company'),
-                    array('name' => 'コラム', 'path' => '/column'),
-                );
-                foreach ($mobile_nav_links as $link) : ?>
-                    <a href="<?php echo esc_url(home_url($link['path'])); ?>" class="text-gray-800 text-lg font-bold py-1 border-b border-sage-50 flex items-center justify-between">
-                        <?php echo esc_html($link['name']); ?>
-                        <?php salon_icon('chevron-right', 'w-4 h-4 text-sage-300'); ?>
-                    </a>
-                <?php endforeach; ?>
-                <div class="pt-6 pb-4 flex flex-col gap-4">
-                    <a href="tel:080-1017-5318" class="flex items-center justify-center gap-3 bg-sage-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-sage-500/20 active:scale-95 transition-transform">
-                        <?php salon_icon('phone', 'w-5 h-5'); ?> 080-1017-5318
-                    </a>
-                    <a href="#" class="flex items-center justify-center gap-3 bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#06C755]/20 active:scale-95 transition-transform">
-                        <?php salon_icon('message-circle', 'w-5 h-5'); ?> LINE 24時間受付
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Header Spacer to prevent content from jumping under fixed header -->
+    <div class="site-content-spacer"></div>
 
     <script>
         document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
