@@ -27,10 +27,10 @@ get_header(); ?>
                     </div>
 
                     <h1 class="relative mb-8 md:mb-10">
-                        <span class="block text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-heading text-[#3a5f56] leading-tight mb-2">
+                        <span class="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-heading text-[#3a5f56] leading-tight mb-2">
                             <span class="keep-phrase">どんな難題だって</span>
                         </span>
-                        <span class="block text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold font-heading text-[#3a5f56]/60 leading-tight">
+                        <span class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-heading text-[#3a5f56]/60 leading-tight">
                             <span class="keep-phrase">情熱と技術で</span><br class="hidden sm:block" /><span class="keep-phrase">越えていく。</span>
                         </span>
                         <div class="absolute -left-4 top-0 w-1 h-2/3 bg-[#c5a085]/50 rounded-full hidden lg:block"></div>

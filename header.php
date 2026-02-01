@@ -65,6 +65,15 @@
             .container-custom {
                 @apply container mx-auto px-4 md:px-6 max-w-6xl;
             }
+
+            .keep-phrase {
+                display: inline-block;
+            }
+            @media (min-width: 768px) {
+                .keep-phrase {
+                    white-space: nowrap;
+                }
+            }
         }
 
         @layer utilities {
@@ -154,11 +163,13 @@
                     <?php
                     $nav_links = array(
                         array('name' => 'トップ', 'path' => '/'),
-                        array('name' => '料金・詳細', 'path' => '/services'),
-                        array('name' => 'システム', 'path' => '/system'),
-                        array('name' => 'Q&A', 'path' => '/faq'),
-                        array('name' => '問い合わせ', 'path' => '/contact'),
-                        array('name' => '採用情報', 'path' => '/jobs'),
+                        array('name' => 'サービス詳細・料金', 'path' => '/services'),
+                        array('name' => 'システム詳細', 'path' => '/system'),
+                        array('name' => 'よくあるご質問', 'path' => '/faq'),
+                        array('name' => 'お問い合わせ', 'path' => '/contact'),
+                        array('name' => '求人情報', 'path' => '/jobs'),
+                        array('name' => '会社概要', 'path' => '/company'),
+                        array('name' => 'コラム', 'path' => '/column'),
                     );
                     foreach ($nav_links as $link) :
                         $is_active = (is_front_page() && $link['path'] == '/') || (strpos($_SERVER['REQUEST_URI'], $link['path']) !== false && $link['path'] != '/');
@@ -188,7 +199,7 @@
             </div>
 
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-sage-100 p-6 absolute top-full left-0 w-full shadow-2xl animate-fade-in">
+            <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-sage-100 p-6 absolute top-full left-0 w-full shadow-2xl animate-fade-in max-h-[calc(100vh-100px)] overflow-y-auto">
                 <div class="flex flex-col gap-6">
                     <?php 
                     $mobile_nav_links = array(
@@ -224,9 +235,27 @@
     <div class="site-content-spacer"></div>
 
     <script>
-        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
-            var menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const body = document.body;
+
+        menuToggle.addEventListener('click', function() {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                body.classList.add('overflow-hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                body.classList.remove('overflow-hidden');
+            }
+        });
+
+        // Close menu on resize if screen becomes large
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 1024) { // lg breakpoint
+                mobileMenu.classList.add('hidden');
+                body.classList.remove('overflow-hidden');
+            }
         });
     </script>
 

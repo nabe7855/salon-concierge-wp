@@ -21,15 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_nonce'])) {
     if (empty($form_errors)) {
         // Collect and sanitize data
         $salon_name    = sanitize_text_field($_POST['salon_name']);
-        $name          = sanitize_text_field($_POST['name']);
-        $email         = sanitize_email($_POST['email']);
-        $phone         = sanitize_text_field($_POST['phone']);
-        $prefecture    = sanitize_text_field($_POST['prefecture']);
-        $reply_method  = sanitize_text_field($_POST['reply_method']);
+        $name          = sanitize_text_field($_POST['contact_name']);
+        $email         = sanitize_email($_POST['contact_email']);
+        $phone         = sanitize_text_field($_POST['contact_phone']);
+        $prefecture    = sanitize_text_field($_POST['contact_prefecture']);
+        $reply_method  = sanitize_text_field($_POST['contact_reply_method']);
         $inquiry_items = isset($_POST['inquiry_items']) ? (array) $_POST['inquiry_items'] : array();
-        $message       = sanitize_textarea_field($_POST['message']);
-        $source        = sanitize_text_field($_POST['source']);
-        $factor        = sanitize_text_field($_POST['factor']);
+        $message       = sanitize_textarea_field($_POST['contact_message']);
+        $source        = sanitize_text_field($_POST['contact_source']);
+        $factor        = sanitize_text_field($_POST['contact_factor']);
 
         // Validation
         if (empty($salon_name)) $form_errors[] = 'サロン名または会社名を入力してください。';
@@ -175,7 +175,7 @@ get_header(); ?>
                                 <span class="bg-[#d4a373] text-white text-[9px] px-2 py-0.5 rounded-sm font-bold">必須</span>
                             </label>
                             <div class="md:w-2/3">
-                                <input type="text" name="name" required value="<?php echo isset($_POST['name']) ? esc_attr($_POST['name']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
+                                <input type="text" name="contact_name" required value="<?php echo isset($_POST['contact_name']) ? esc_attr($_POST['contact_name']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
                             </div>
                         </div>
 
@@ -186,7 +186,7 @@ get_header(); ?>
                                 <span class="bg-[#d4a373] text-white text-[9px] px-2 py-0.5 rounded-sm font-bold">必須</span>
                             </label>
                             <div class="md:w-2/3">
-                                <input type="email" name="email" required value="<?php echo isset($_POST['email']) ? esc_attr($_POST['email']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
+                                <input type="email" name="contact_email" required value="<?php echo isset($_POST['contact_email']) ? esc_attr($_POST['contact_email']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
                             </div>
                         </div>
 
@@ -197,7 +197,7 @@ get_header(); ?>
                                 <span class="bg-[#d4a373] text-white text-[9px] px-2 py-0.5 rounded-sm font-bold">必須</span>
                             </label>
                             <div class="md:w-2/3">
-                                <input type="tel" name="phone" required value="<?php echo isset($_POST['phone']) ? esc_attr($_POST['phone']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
+                                <input type="tel" name="contact_phone" required value="<?php echo isset($_POST['contact_phone']) ? esc_attr($_POST['contact_phone']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
                             </div>
                         </div>
 
@@ -208,12 +208,12 @@ get_header(); ?>
                                 <span class="bg-[#d4a373] text-white text-[9px] px-2 py-0.5 rounded-sm font-bold">必須</span>
                             </label>
                             <div class="md:w-2/3">
-                                <select name="prefecture" required class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all appearance-none cursor-pointer text-gray-600">
-                                    <option value="" disabled <?php echo !isset($_POST['prefecture']) ? 'selected' : ''; ?>>選択してください</option>
+                                <select name="contact_prefecture" required class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all appearance-none cursor-pointer text-gray-600">
+                                    <option value="" disabled <?php echo !isset($_POST['contact_prefecture']) ? 'selected' : ''; ?>>選択してください</option>
                                     <?php
                                     $prefs = array('北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県');
                                     foreach($prefs as $pref) {
-                                        $selected = (isset($_POST['prefecture']) && $_POST['prefecture'] === $pref) ? 'selected' : '';
+                                        $selected = (isset($_POST['contact_prefecture']) && $_POST['contact_prefecture'] === $pref) ? 'selected' : '';
                                         echo "<option value=\"$pref\" $selected>$pref</option>";
                                     }
                                     ?>
@@ -229,11 +229,11 @@ get_header(); ?>
                             </label>
                             <div class="md:w-2/3 flex flex-wrap gap-8 py-2">
                                 <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="radio" name="reply_method" value="phone" required <?php checked(isset($_POST['reply_method']) ? $_POST['reply_method'] : '', 'phone'); ?> class="w-5 h-5 text-[#9e8263] focus:ring-[#9e8263] accent-[#9e8263] border-gray-300 transition-all cursor-pointer">
+                                    <input type="radio" name="contact_reply_method" value="phone" required <?php checked(isset($_POST['contact_reply_method']) ? $_POST['contact_reply_method'] : '', 'phone'); ?> class="w-5 h-5 text-[#9e8263] focus:ring-[#9e8263] accent-[#9e8263] border-gray-300 transition-all cursor-pointer">
                                     <span class="text-gray-500 text-sm font-medium group-hover:text-[#9e8263]">お電話での連絡を希望</span>
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="radio" name="reply_method" value="email" required <?php checked(isset($_POST['reply_method']) ? $_POST['reply_method'] : '', 'email'); ?> class="w-5 h-5 text-[#9e8263] focus:ring-[#9e8263] accent-[#9e8263] border-gray-300 transition-all cursor-pointer">
+                                    <input type="radio" name="contact_reply_method" value="email" required <?php checked(isset($_POST['contact_reply_method']) ? $_POST['contact_reply_method'] : '', 'email'); ?> class="w-5 h-5 text-[#9e8263] focus:ring-[#9e8263] accent-[#9e8263] border-gray-300 transition-all cursor-pointer">
                                     <span class="text-gray-500 text-sm font-medium group-hover:text-[#9e8263]">メールでの連絡を希望</span>
                                 </label>
                             </div>
@@ -264,7 +264,7 @@ get_header(); ?>
                                 <span class="bg-gray-200 text-gray-500 text-[9px] px-2 py-0.5 rounded-sm font-bold">任意</span>
                             </label>
                             <div class="md:w-2/3">
-                                <textarea name="message" rows="6" class="w-full px-5 py-4 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all"><?php echo isset($_POST['message']) ? esc_textarea($_POST['message']) : ''; ?></textarea>
+                                <textarea name="contact_message" rows="6" class="w-full px-5 py-4 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all"><?php echo isset($_POST['contact_message']) ? esc_textarea($_POST['contact_message']) : ''; ?></textarea>
                             </div>
                         </div>
 
@@ -279,7 +279,7 @@ get_header(); ?>
                                 $sources = array('Yahoo! 検索', 'google 検索', '公式 Twitter', 'ご紹介', 'その他');
                                 foreach($sources as $src): ?>
                                     <label class="flex items-center gap-3 cursor-pointer group">
-                                        <input type="radio" name="source" value="<?php echo $src; ?>" <?php checked(isset($_POST['source']) ? $_POST['source'] : '', $src); ?> class="w-5 h-5 text-[#9e8263] focus:ring-[#9e8263] accent-[#9e8263] border-gray-300 transition-all cursor-pointer">
+                                        <input type="radio" name="contact_source" value="<?php echo $src; ?>" <?php checked(isset($_POST['contact_source']) ? $_POST['contact_source'] : '', $src); ?> class="w-5 h-5 text-[#9e8263] focus:ring-[#9e8263] accent-[#9e8263] border-gray-300 transition-all cursor-pointer">
                                         <span class="text-gray-500 text-xs font-medium group-hover:text-[#9e8263]"><?php echo $src; ?></span>
                                     </label>
                                 <?php endforeach; ?>
@@ -293,7 +293,7 @@ get_header(); ?>
                                 <span class="bg-gray-200 text-gray-500 text-[9px] px-2 py-0.5 rounded-sm font-bold">任意</span>
                             </label>
                             <div class="md:w-2/3">
-                                <input type="text" name="factor" value="<?php echo isset($_POST['factor']) ? esc_attr($_POST['factor']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
+                                <input type="text" name="contact_factor" value="<?php echo isset($_POST['contact_factor']) ? esc_attr($_POST['contact_factor']) : ''; ?>" class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-lg focus:ring-4 focus:ring-botanical-primary/5 focus:border-botanical-primary outline-none transition-all">
                             </div>
                         </div>
 

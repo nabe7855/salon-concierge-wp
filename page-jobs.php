@@ -20,16 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
 
     if (empty($form_errors)) {
         // Collect and sanitize data
-        $name            = sanitize_text_field($_POST['name']);
-        $age             = sanitize_text_field($_POST['age']);
-        $email           = sanitize_email($_POST['email']);
-        $phone           = sanitize_text_field($_POST['phone']);
-        $desired_hours   = sanitize_text_field($_POST['desired_hours']);
-        $prefecture      = sanitize_text_field($_POST['prefecture']);
-        $gender          = sanitize_text_field($_POST['gender']);
-        $employment_type = sanitize_text_field($_POST['employment_type']);
-        $desired_days    = sanitize_text_field($_POST['desired_days']);
-        $comment         = sanitize_textarea_field($_POST['comment']);
+        $name            = sanitize_text_field($_POST['recruit_name']);
+        $age             = sanitize_text_field($_POST['recruit_age']);
+        $email           = sanitize_email($_POST['recruit_email']);
+        $phone           = sanitize_text_field($_POST['recruit_phone']);
+        $desired_hours   = sanitize_text_field($_POST['recruit_desired_hours']);
+        $prefecture      = sanitize_text_field($_POST['recruit_prefecture']);
+        $gender          = sanitize_text_field($_POST['recruit_gender']);
+        $employment_type = sanitize_text_field($_POST['recruit_employment_type']);
+        $desired_days    = sanitize_text_field($_POST['recruit_desired_days']);
+        $comment         = sanitize_textarea_field($_POST['recruit_comment']);
 
         // Validation
         if (empty($name))            $form_errors[] = 'お名前を入力してください。';
@@ -406,7 +406,7 @@ get_header(); ?>
                                     <label class="text-sm font-bold text-gray-700">お名前</label>
                                     <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
                                 </div>
-                                <input type="text" name="name" required value="<?php echo isset($_POST['name']) ? esc_attr($_POST['name']) : ''; ?>" placeholder="山田 太郎" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                                <input type="text" name="recruit_name" required value="<?php echo isset($_POST['recruit_name']) ? esc_attr($_POST['recruit_name']) : ''; ?>" placeholder="山田 太郎" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
 
                             <!-- 年齢 -->
@@ -415,7 +415,7 @@ get_header(); ?>
                                     <label class="text-sm font-bold text-gray-700">年齢</label>
                                     <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
                                 </div>
-                                <input type="text" name="age" required value="<?php echo isset($_POST['age']) ? esc_attr($_POST['age']) : ''; ?>" placeholder="25" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                                <input type="text" name="recruit_age" required value="<?php echo isset($_POST['recruit_age']) ? esc_attr($_POST['recruit_age']) : ''; ?>" placeholder="25" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
 
                             <!-- メールアドレス -->
@@ -424,7 +424,7 @@ get_header(); ?>
                                     <label class="text-sm font-bold text-gray-700">メールアドレス</label>
                                     <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
                                 </div>
-                                <input type="email" name="email" required value="<?php echo isset($_POST['email']) ? esc_attr($_POST['email']) : ''; ?>" placeholder="example@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                                <input type="email" name="recruit_email" required value="<?php echo isset($_POST['recruit_email']) ? esc_attr($_POST['recruit_email']) : ''; ?>" placeholder="example@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
 
                             <!-- 電話番号 -->
@@ -433,7 +433,7 @@ get_header(); ?>
                                     <label class="text-sm font-bold text-gray-700">電話番号</label>
                                     <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
                                 </div>
-                                <input type="tel" name="phone" required value="<?php echo isset($_POST['phone']) ? esc_attr($_POST['phone']) : ''; ?>" placeholder="090-0000-0000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
+                                <input type="tel" name="recruit_phone" required value="<?php echo isset($_POST['recruit_phone']) ? esc_attr($_POST['recruit_phone']) : ''; ?>" placeholder="090-0000-0000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300">
                             </div>
 
                             <!-- 希望勤務時間 -->
@@ -445,7 +445,7 @@ get_header(); ?>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
                                     <?php foreach(["9：30～19：00", "14：00～23：00", "19：00～2：00", "19：00～4：00", "19：00～6：00"] as $time): ?>
                                         <label class="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100 group">
-                                            <input type="radio" name="desired_hours" value="<?php echo $time; ?>" <?php checked(isset($_POST['desired_hours']) ? $_POST['desired_hours'] : '', $time); ?> class="w-4 h-4 accent-[#3a5f56]">
+                                            <input type="radio" name="recruit_desired_hours" value="<?php echo $time; ?>" <?php checked(isset($_POST['recruit_desired_hours']) ? $_POST['recruit_desired_hours'] : '', $time); ?> class="w-4 h-4 accent-[#3a5f56]">
                                             <span class="text-sm text-gray-600 font-mono group-hover:text-gray-900"><?php echo $time; ?></span>
                                         </label>
                                     <?php endforeach; ?>
@@ -458,10 +458,10 @@ get_header(); ?>
                                     <label class="text-sm font-bold text-gray-700">お住まいの都道府県</label>
                                     <span class="bg-[#d4a373] text-white text-[10px] px-2 py-0.5 rounded shadow-sm">必須</span>
                                 </div>
-                                <select name="prefecture" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all">
+                                <select name="recruit_prefecture" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all">
                                     <option value="">選択してください</option>
                                     <?php foreach(["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"] as $pref): ?>
-                                        <option <?php selected(isset($_POST['prefecture']) ? $_POST['prefecture'] : '', $pref); ?>><?php echo $pref; ?></option>
+                                        <option <?php selected(isset($_POST['recruit_prefecture']) ? $_POST['recruit_prefecture'] : '', $pref); ?>><?php echo $pref; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -474,11 +474,11 @@ get_header(); ?>
                                 </div>
                                 <div class="flex gap-8 pt-2">
                                     <label class="flex items-center gap-3 cursor-pointer">
-                                        <input type="radio" name="gender" value="male" <?php checked(isset($_POST['gender']) ? $_POST['gender'] : '', 'male'); ?> class="w-5 h-5 accent-[#3a5f56]">
+                                        <input type="radio" name="recruit_gender" value="male" <?php checked(isset($_POST['recruit_gender']) ? $_POST['recruit_gender'] : '', 'male'); ?> class="w-5 h-5 accent-[#3a5f56]">
                                         <span class="text-sm text-gray-600">男性</span>
                                     </label>
                                     <label class="flex items-center gap-3 cursor-pointer">
-                                        <input type="radio" name="gender" value="female" <?php checked(isset($_POST['gender']) ? $_POST['gender'] : 'female', 'female'); ?> class="w-5 h-5 accent-[#3a5f56]">
+                                        <input type="radio" name="recruit_gender" value="female" <?php checked(isset($_POST['recruit_gender']) ? $_POST['recruit_gender'] : 'female', 'female'); ?> class="w-5 h-5 accent-[#3a5f56]">
                                         <span class="text-sm text-gray-600">女性</span>
                                     </label>
                                 </div>
@@ -493,7 +493,7 @@ get_header(); ?>
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
                                     <?php foreach(["正社員", "契約社員", "アルバイト", "業務委託"] as $type): ?>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="employment_type" value="<?php echo $type; ?>" <?php checked(isset($_POST['employment_type']) ? $_POST['employment_type'] : '正社員', $type); ?> class="w-4 h-4 accent-[#3a5f56]">
+                                            <input type="radio" name="recruit_employment_type" value="<?php echo $type; ?>" <?php checked(isset($_POST['recruit_employment_type']) ? $_POST['recruit_employment_type'] : '正社員', $type); ?> class="w-4 h-4 accent-[#3a5f56]">
                                             <span class="text-sm text-gray-600"><?php echo $type; ?></span>
                                         </label>
                                     <?php endforeach; ?>
@@ -508,9 +508,9 @@ get_header(); ?>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="text-sm text-gray-600">週</span>
-                                    <select name="desired_days" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none w-24">
+                                    <select name="recruit_desired_days" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none w-24">
                                         <?php for($i=1; $i<=7; $i++): ?>
-                                            <option value="<?php echo $i; ?>" <?php selected(isset($_POST['desired_days']) ? $_POST['desired_days'] : 5, $i); ?>><?php echo $i; ?></option>
+                                            <option value="<?php echo $i; ?>" <?php selected(isset($_POST['recruit_desired_days']) ? $_POST['recruit_desired_days'] : 5, $i); ?>><?php echo $i; ?></option>
                                         <?php endfor; ?>
                                     </select>
                                     <span class="text-sm text-gray-600">日</span>
@@ -523,7 +523,7 @@ get_header(); ?>
                                     <label class="text-sm font-bold text-gray-700">コメント欄</label>
                                     <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">任意</span>
                                 </div>
-                                <textarea name="comment" rows="5" placeholder="ご質問やご要望があればご記入ください" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300"><?php echo isset($_POST['comment']) ? esc_textarea($_POST['comment']) : ''; ?></textarea>
+                                <textarea name="recruit_comment" rows="5" placeholder="ご質問やご要望があればご記入ください" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-botanical-primary/20 transition-all placeholder:text-gray-300"><?php echo isset($_POST['recruit_comment']) ? esc_textarea($_POST['recruit_comment']) : ''; ?></textarea>
                             </div>
 
                             <!-- プライバシーポリシー -->

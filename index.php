@@ -1,4 +1,4 @@
-get_header(); ?>
+<?php get_header(); ?>
 
 <div class="bg-[#fcfcfc] min-h-screen pb-20 font-sans">
     <div class="container mx-auto px-4 py-3 text-[10px] text-gray-400">
