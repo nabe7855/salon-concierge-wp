@@ -7,7 +7,7 @@
         <div class="absolute inset-0 z-0">
             <picture>
                 <!-- Mobile optimized image -->
-                <source media="(max-width: 767px)" srcset="<?php echo salon_img('/images/images/トップページバナー.png'); ?>">
+                <source media="(max-width: 767px)" srcset="<?php echo salon_img('/images/images/hero-mobile.png'); ?>">
                 <!-- Desktop optimized image -->
                 <img src="<?php echo salon_img('/images/images/hero-bg-v2.png'); ?>" alt="Call Center" class="w-full h-full object-contain object-top md:object-cover md:object-center lg:object-[center_right]">
             </picture>
