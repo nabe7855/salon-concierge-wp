@@ -62,7 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_nonce'])) {
             }
 
             // Prepare Email to Admin
-            $admin_email = 'nabe7855@gmail.com';
+            $admin_email = get_option('salon_form_notification_email');
+            if (empty($admin_email)) {
+                $admin_email = 'nabe7855@gmail.com';
+            }
             $subject = '【お問い合わせ】' . $salon_name . '様より';
             
             $body = "お問い合わせフォームよりメッセージが届きました。\n\n";

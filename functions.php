@@ -222,3 +222,28 @@ function salon_display_application_meta_box($post) {
     echo '<tr><th>コメント欄</th><td>' . nl2br(esc_html($comment)) . '</td></tr>';
     echo '</table>';
 }
+
+/**
+ * Register Custom Settings
+ */
+function salon_register_settings() {
+    register_setting('general', 'salon_form_notification_email', array(
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_email',
+        'default' => ''
+    ));
+
+    add_settings_field(
+        'salon_form_notification_email',
+        'フォーム通知先メールアドレス',
+        'salon_form_notification_email_callback',
+        'general'
+    );
+}
+add_action('admin_init', 'salon_register_settings');
+
+function salon_form_notification_email_callback() {
+    $email = get_option('salon_form_notification_email');
+    echo '<input type="email" name="salon_form_notification_email" value="' . esc_attr($email) . '" class="regular-text">';
+    echo '<p class="description">お問い合わせフォームおよび採用応募フォームの通知先メールアドレスを設定します。<br>未設定の場合は管理者メールアドレスが使用されます。</p>';
+}
