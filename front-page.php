@@ -89,14 +89,23 @@
                     array('image' => '/images/pain-line.png', 'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…"),
                     array('image' => '/images/pain-midnight.png', 'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…"),
                 );
-                foreach ($problems as $item) :
+                <?php
+                foreach ($problems as $idx => $item) :
                 ?>
-                    <div class="bg-botanical-bg p-8 md:p-10 rounded-2xl border border-transparent text-center hover:border-botanical-primary/20 hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-botanical-primary/5 rounded-bl-[4rem] transition-all group-hover:bg-botanical-primary/10"></div>
-                        <div class="w-full h-32 md:h-40 mb-6 flex items-center justify-center overflow-hidden">
-                            <img src="<?php echo salon_img($item['image']); ?>" alt="" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden flex flex-col items-center transform hover:-translate-y-2">
+                        <!-- Background Accent -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-botanical-primary/5 rounded-bl-[5rem] transition-all group-hover:bg-botanical-primary/10 -z-0"></div>
+                        
+                        <!-- Case Tag -->
+                        <span class="relative z-10 inline-block px-3 py-1 rounded-full bg-sage-100 text-botanical-primary text-[10px] font-bold tracking-widest mb-6 opacity-80 uppercase">Case 0<?php echo $idx + 1; ?></span>
+
+                        <!-- Illustration Container -->
+                        <div class="relative z-10 w-full h-40 md:h-48 mb-8 flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50/50 group-hover:bg-white transition-colors duration-500">
+                            <img src="<?php echo salon_img($item['image']); ?>" alt="" class="max-w-[85%] max-h-[85%] object-contain group-hover:scale-110 transition-transform duration-700">
                         </div>
-                        <p class="font-bold text-gray-700 leading-loose text-sm md:text-lg whitespace-pre-line">
+
+                        <!-- Text content -->
+                        <p class="relative z-10 font-bold text-gray-800 leading-relaxed text-base md:text-lg whitespace-pre-line">
                             <?php 
                             $lines = explode("\n", $item['text']);
                             foreach($lines as $line) {
@@ -104,6 +113,12 @@
                             }
                             ?>
                         </p>
+                        
+                        <!-- Indicator -->
+                        <div class="mt-8 pt-6 border-t border-gray-50 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-2 text-botanical-cta font-bold text-xs">
+                           <span>詳細を解決する</span>
+                           <?php salon_icon('chevron-down', 'w-3 h-3'); ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
