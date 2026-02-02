@@ -84,11 +84,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
             $body .= "--------------------------------------------------\n";
 
             $headers = array('Content-Type: text/plain; charset=UTF-8');
-            $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $admin_email . '>';
+            // Use site admin email or a domain-based address for From to avoid spoofing
+            $from_email = 'wordpress@' . parse_url(home_url(), PHP_URL_HOST);
+            $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $from_email . '>';
             $headers[] = 'Reply-To: ' . $email;
 
             // Send to Admin
             $mail_sent = wp_mail($admin_email, $subject, $body, $headers);
+
+            // Debug logging
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("wp_mail to admin ($admin_email): " . ($mail_sent ? "SUCCESS" : "FAILED"));
+                if (!$mail_sent) {
+                    global $ts_mail_errors;
+                    global $phpmailer;
+                    if (!isset($ts_mail_errors)) $ts_mail_errors = array();
+                    if (isset($phpmailer)) {
+                        $ts_mail_errors[] = $phpmailer->ErrorInfo;
+                    }
+                    error_log("Mail Error Info: " . print_r($ts_mail_errors, true));
+                }
+            }
 
             if ($mail_sent) {
                 // Auto-reply to Applicant
