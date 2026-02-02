@@ -89,7 +89,6 @@
                     array('image' => '/images/pain-line.png', 'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…"),
                     array('image' => '/images/pain-midnight.png', 'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…"),
                 );
-                <?php
                 foreach ($problems as $idx => $item) :
                 ?>
                     <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden flex flex-col items-center transform hover:-translate-y-2">
