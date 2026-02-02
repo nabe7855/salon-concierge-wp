@@ -87,17 +87,17 @@
                 $problems = array(
                     array(
                         'image' => '/images/pain-phone.png', 
-                        'text' => "電話が多すぎて、\n対応出来ず取りこぼしてる、、、",
+                        'text' => "電話が多すぎて、対応出来ず取りこぼしてる、、、",
                         'stats' => "応答率10%低下につき月間 約15〜30万円の損失"
                     ),
                     array(
                         'image' => '/images/pain-line.png', 
-                        'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…",
+                        'text' => "LINEやWeb予約の返信が遅れ、機会損失になっている…",
                         'stats' => "返信まで3分以上経過すると、成約率は80%以上低下します"
                     ),
                     array(
                         'image' => '/images/pain-midnight.png', 
-                        'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…",
+                        'text' => "深夜や早朝の問い合わせに対応できず、売上を逃している…",
                         'stats' => "深夜・早朝のアクセスは全体の25%。放置は売上の1/4を捨てるのと同じです"
                     ),
                 );
@@ -116,14 +116,9 @@
                         </div>
 
                         <!-- Text content -->
-                        <div class="relative z-10">
-                            <p class="font-bold text-gray-800 leading-relaxed text-lg md:text-2xl whitespace-pre-line mb-5">
-                                <?php 
-                                $lines = explode("\n", $item['text']);
-                                foreach($lines as $line) {
-                                    echo '<span class="keep-phrase">' . esc_html($line) . '</span>';
-                                }
-                                ?>
+                        <div class="relative z-10 px-2">
+                            <p class="font-bold text-gray-800 leading-relaxed text-lg md:text-2xl mb-5">
+                                <?php echo esc_html($item['text']); ?>
                             </p>
                             <p class="text-botanical-cta font-bold text-xs md:text-sm tracking-wider opacity-90 break-words-jp px-4">
                                 <?php echo esc_html($item['stats']); ?>
