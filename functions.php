@@ -15,9 +15,6 @@ function salon_concierge_setup() {
 add_action('after_setup_theme', 'salon_concierge_setup');
 
 function salon_concierge_scripts() {
-    // Enqueue Tailwind CSS v4 Browser Script (load in head to prevent MIME type errors)
-    wp_enqueue_script('tailwind-cdn', 'https://unpkg.com/@tailwindcss/browser@4', array(), null, false);
-    
     // Enqueue Lucide Icons (load in footer)
     wp_enqueue_script('lucide', 'https://unpkg.com/lucide@latest', array(), null, true);
     
