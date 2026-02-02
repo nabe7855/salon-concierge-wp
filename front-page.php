@@ -85,16 +85,16 @@
             <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                 <?php
                 $problems = array(
-                    array('icon' => 'phone', 'text' => "電話が多すぎて、\n対応出来ず取りこぼしてる、、、"),
-                    array('icon' => 'message-square', 'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…"),
-                    array('icon' => 'clock', 'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…"),
+                    array('image' => '/images/pain-phone.png', 'text' => "電話が多すぎて、\n対応出来ず取りこぼしてる、、、"),
+                    array('image' => '/images/pain-line.png', 'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…"),
+                    array('image' => '/images/pain-midnight.png', 'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…"),
                 );
                 foreach ($problems as $item) :
                 ?>
                     <div class="bg-botanical-bg p-8 md:p-10 rounded-2xl border border-transparent text-center hover:border-botanical-primary/20 hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-botanical-primary/5 rounded-bl-[4rem] transition-all group-hover:bg-botanical-primary/10"></div>
-                        <div class="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full mx-auto flex items-center justify-center text-botanical-cta shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <?php salon_icon($item['icon'], 'w-8 h-8 md:w-9 md:h-9'); ?>
+                        <div class="w-full h-32 md:h-40 mb-6 flex items-center justify-center overflow-hidden">
+                            <img src="<?php echo salon_img($item['image']); ?>" alt="" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300">
                         </div>
                         <p class="font-bold text-gray-700 leading-loose text-sm md:text-lg whitespace-pre-line">
                             <?php 
