@@ -86,6 +86,21 @@
                 width: max-content;
                 animation: marquee 50s linear infinite;
             }
+
+            .reveal-on-scroll {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+
+            .reveal-active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .reveal-delay-1 { transition-delay: 0.1s; }
+            .reveal-delay-2 { transition-delay: 0.2s; }
+            .reveal-delay-3 { transition-delay: 0.3s; }
         }
 
         @keyframes fadeIn {
@@ -256,6 +271,27 @@
                 mobileMenu.classList.add('hidden');
                 body.classList.remove('overflow-hidden');
             }
+        });
+
+        // Intersection Observer for Scroll Animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            revealElements.forEach(el => observer.observe(el));
         });
     </script>
 

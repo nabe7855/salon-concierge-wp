@@ -76,10 +76,10 @@
         <div class="container-custom relative z-10">
             <div class="text-center mb-16">
                 <span class="text-botanical-primary font-bold tracking-widest text-xs uppercase mb-3 block opacity-70">PAIN POINTS</span>
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-heading reveal-on-scroll">
                     <span class="keep-phrase">こんなお悩みは</span><span class="keep-phrase">ありませんか？</span>
                 </h2>
-                <div class="mx-auto mt-4 w-12 h-1 bg-botanical-cta rounded-full"></div>
+                <div class="mx-auto mt-4 w-12 h-1 bg-botanical-cta rounded-full reveal-on-scroll reveal-delay-1"></div>
             </div>
 
             <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
@@ -91,7 +91,7 @@
                 );
                 foreach ($problems as $idx => $item) :
                 ?>
-                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden flex flex-col items-center transform hover:-translate-y-2">
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden flex flex-col items-center transform hover:-translate-y-2 reveal-on-scroll reveal-delay-<?php echo $idx + 1; ?>">
                         <!-- Background Accent -->
                         <div class="absolute top-0 right-0 w-32 h-32 bg-botanical-primary/5 rounded-bl-[5rem] transition-all group-hover:bg-botanical-primary/10 -z-0"></div>
                         
@@ -122,12 +122,19 @@
                 <?php endforeach; ?>
             </div>
 
-            <div class="mt-16 text-center bg-gradient-to-r from-botanical-primary/5 to-botanical-primary/10 p-6 md:p-10 rounded-2xl max-w-4xl mx-auto border border-botanical-primary/10">
+            <div class="mt-16 text-center bg-gradient-to-r from-botanical-primary/5 to-botanical-primary/10 p-6 md:p-10 rounded-2xl max-w-4xl mx-auto border border-botanical-primary/10 reveal-on-scroll">
                 <p class="font-bold text-botanical-primary text-lg md:text-xl font-heading leading-relaxed">
                     <span class="keep-phrase">その課題、SalonConciergeが解決します。</span><br class="hidden md:block" />
                     <span class="keep-phrase">機会損失を防ぎ、</span><span class="keep-phrase">サロンの売上最大化に貢献します。</span>
                 </p>
             </div>
+        </div>
+        
+        <!-- Wavy Divider -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-[calc(100%+1.3px)] h-[60px] fill-botanical-bg/30">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.05,115.33,235.58,72.33,321.39,56.44Z"></path>
+            </svg>
         </div>
     </section>
 
