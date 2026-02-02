@@ -88,17 +88,17 @@
                     array(
                         'image' => '/images/pain-phone.png', 
                         'text' => "電話が多すぎて、\n対応出来ず取りこぼしてる、、、",
-                        'stats' => "【損失試算】応答率10%低下につき月間 約15〜30万円の損失"
+                        'stats' => "応答率10%低下につき月間 約15〜30万円の損失"
                     ),
                     array(
                         'image' => '/images/pain-line.png', 
                         'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…",
-                        'stats' => "【現実】返信まで3分以上経過すると、成約率は80%以上低下します"
+                        'stats' => "返信まで3分以上経過すると、成約率は80%以上低下します"
                     ),
                     array(
                         'image' => '/images/pain-midnight.png', 
                         'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…",
-                        'stats' => "【調査】深夜・早朝のアクセスは全体の25%。放置は売上の1/4を捨てるのと同じです"
+                        'stats' => "深夜・早朝のアクセスは全体の25%。放置は売上の1/4を捨てるのと同じです"
                     ),
                 );
                 foreach ($problems as $idx => $item) :
@@ -125,7 +125,7 @@
                                 }
                                 ?>
                             </p>
-                            <p class="text-botanical-cta font-bold text-[10px] md:text-xs tracking-wider opacity-90">
+                            <p class="text-botanical-cta font-bold text-[10px] md:text-xs tracking-wider opacity-90 break-words-jp px-4">
                                 <?php echo esc_html($item['stats']); ?>
                             </p>
                         </div>
