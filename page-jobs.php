@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
             }
 
             // Prepare Email to Admin
-            $admin_email = get_option('admin_email');
+            $admin_email = 'nabe7855@gmail.com';
             $subject = '【求人応募】' . $name . '様よりエントリー';
             
             $body = "求人応募フォームよりエントリーが届きました。\n\n";
