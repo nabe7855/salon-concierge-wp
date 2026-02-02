@@ -84,8 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
             $body .= "--------------------------------------------------\n";
 
             $headers = array('Content-Type: text/plain; charset=UTF-8');
-            // Use site admin email or a domain-based address for From to avoid spoofing
-            $from_email = 'wordpress@' . parse_url(home_url(), PHP_URL_HOST);
+            // Use real email address created in ConoHa to avoid spoofing
+            $from_email = 'info@nabeya.online';
             $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $from_email . '>';
             $headers[] = 'Reply-To: ' . $email;
 
