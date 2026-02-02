@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <?php wp_head(); ?>
-    <style type="text/css">
-        @import "tailwindcss";
-
+    <style type="text/tailwindcss">
         @theme {
             /* High-End Botanical Palette */
             --color-botanical-primary: #3a5f56;
