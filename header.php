@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <?php wp_head(); ?>
-    <style type="text/tailwindcss">
+    <style type="text/css">
         @import "tailwindcss";
 
         @theme {
