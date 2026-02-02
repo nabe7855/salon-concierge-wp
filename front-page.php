@@ -117,7 +117,7 @@
 
                         <!-- Text content -->
                         <div class="relative z-10">
-                            <p class="font-bold text-gray-800 leading-relaxed text-base md:text-xl whitespace-pre-line mb-4">
+                            <p class="font-bold text-gray-800 leading-relaxed text-lg md:text-2xl whitespace-pre-line mb-5">
                                 <?php 
                                 $lines = explode("\n", $item['text']);
                                 foreach($lines as $line) {
@@ -125,7 +125,7 @@
                                 }
                                 ?>
                             </p>
-                            <p class="text-botanical-cta font-bold text-[10px] md:text-xs tracking-wider opacity-90 break-words-jp px-4">
+                            <p class="text-botanical-cta font-bold text-xs md:text-sm tracking-wider opacity-90 break-words-jp px-4">
                                 <?php echo esc_html($item['stats']); ?>
                             </p>
                         </div>
