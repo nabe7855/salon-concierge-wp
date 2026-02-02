@@ -87,47 +87,52 @@
                 $problems = array(
                     array(
                         'image' => '/images/pain-phone.png', 
-                        'title' => "「また出られなかった...」\nその一瞬で数万円が消えています。",
-                        'desc' => "鳴り止まないベルは、売上消失のカウントダウン。溢れたコールは、すべてライバル店への招待状です。"
+                        'text' => "電話が多すぎて、\n対応出来ず取りこぼしてる、、、",
+                        'stats' => "【損失試算】応答率10%低下につき月間 約15〜30万円の損失"
                     ),
                     array(
                         'image' => '/images/pain-line.png', 
-                        'title' => "返信を待つ客は、\nたった3分で他店へ流れます。",
-                        'desc' => "LINEの既読スルーや返信遅れは「予約しなくていい」と言っているのと同じ。指名客さえ簡単に失います。"
+                        'text' => "lineやweb予約の返信が遅れ、\n機会損失になっている…",
+                        'stats' => "【現実】返信まで3分以上経過すると、成約率は80%以上低下します"
                     ),
                     array(
                         'image' => '/images/pain-midnight.png', 
-                        'title' => "あなたが寝ている間も、\nライバルは稼ぎ続けています。",
-                        'desc' => "深夜・早朝の「今すぐ行きたい」熱烈なニーズ。無慈悲に見逃し続けるか、SalonConciergeで全て掴むか。"
+                        'text' => "深夜や早朝の問い合わせに対応できず、\n売上を逃している…",
+                        'stats' => "【調査】深夜・早朝のアクセスは全体の25%。放置は売上の1/4を捨てるのと同じです"
                     ),
                 );
                 foreach ($problems as $idx => $item) :
                 ?>
-                    <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] transition-all duration-500 group relative overflow-hidden flex flex-col items-center transform hover:-translate-y-2 reveal-on-scroll reveal-delay-<?php echo $idx + 1; ?>">
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden flex flex-col items-center transform hover:-translate-y-2 reveal-on-scroll reveal-delay-<?php echo $idx + 1; ?>">
                         <!-- Background Accent -->
                         <div class="absolute top-0 right-0 w-32 h-32 bg-botanical-primary/5 rounded-bl-[5rem] transition-all group-hover:bg-botanical-primary/10 -z-0"></div>
                         
                         <!-- Case Tag -->
-                        <span class="relative z-10 inline-block px-3 py-1 rounded-full bg-sage-100 text-botanical-primary text-[10px] font-bold tracking-widest mb-6 opacity-80 uppercase">Warning Case 0<?php echo $idx + 1; ?></span>
+                        <span class="relative z-10 inline-block px-3 py-1 rounded-full bg-sage-100 text-botanical-primary text-[10px] font-bold tracking-widest mb-6 opacity-80 uppercase">Case 0<?php echo $idx + 1; ?></span>
 
                         <!-- Illustration Container -->
-                        <div class="relative z-10 w-full h-56 md:h-64 mb-8 flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50/50 group-hover:bg-white transition-colors duration-500">
-                            <img src="<?php echo salon_img($item['image']); ?>" alt="" class="max-w-[90%] max-h-[90%] object-contain group-hover:scale-105 transition-transform duration-700">
+                        <div class="relative z-10 w-full h-60 md:h-72 mb-8 flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50/50 group-hover:bg-white transition-colors duration-500">
+                            <img src="<?php echo salon_img($item['image']); ?>" alt="" class="max-w-[95%] max-h-[95%] object-contain group-hover:scale-110 transition-transform duration-700">
                         </div>
 
                         <!-- Text content -->
-                        <div class="relative z-10 px-2 lg:px-4">
-                            <h3 class="font-bold text-gray-900 leading-tight text-lg md:text-xl mb-4 font-heading whitespace-pre-line group-hover:text-botanical-cta transition-colors">
-                                <?php echo esc_html($item['title']); ?>
-                            </h3>
-                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed mb-6">
-                                <?php echo esc_html($item['desc']); ?>
+                        <div class="relative z-10">
+                            <p class="font-bold text-gray-800 leading-relaxed text-base md:text-xl whitespace-pre-line mb-4">
+                                <?php 
+                                $lines = explode("\n", $item['text']);
+                                foreach($lines as $line) {
+                                    echo '<span class="keep-phrase">' . esc_html($line) . '</span>';
+                                }
+                                ?>
+                            </p>
+                            <p class="text-botanical-cta font-bold text-[10px] md:text-xs tracking-wider opacity-90">
+                                <?php echo esc_html($item['stats']); ?>
                             </p>
                         </div>
                         
                         <!-- Indicator -->
-                        <div class="mt-auto pt-6 border-t border-gray-50 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-2 text-botanical-cta font-bold text-xs">
-                           <span>絶望を解決に変える</span>
+                        <div class="mt-8 pt-6 border-t border-gray-50 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-2 text-botanical-cta font-bold text-xs">
+                           <span>詳細を解決する</span>
                            <?php salon_icon('chevron-down', 'w-3 h-3'); ?>
                         </div>
                     </div>
