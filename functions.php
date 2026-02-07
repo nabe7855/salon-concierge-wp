@@ -230,10 +230,36 @@ function salon_register_settings() {
         'default' => ''
     ));
 
+    register_setting('general', 'salon_line_url', array(
+        'type' => 'string',
+        'sanitize_callback' => 'esc_url_raw',
+        'default' => ''
+    ));
+
+    register_setting('general', 'salon_phone_number', array(
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+        'default' => '080-1017-5318'
+    ));
+
     add_settings_field(
         'salon_form_notification_email',
         'フォーム通知先メールアドレス',
         'salon_form_notification_email_callback',
+        'general'
+    );
+
+    add_settings_field(
+        'salon_line_url',
+        '公式LINE URL',
+        'salon_line_url_callback',
+        'general'
+    );
+
+    add_settings_field(
+        'salon_phone_number',
+        '代表電話番号',
+        'salon_phone_number_callback',
         'general'
     );
 }
@@ -243,4 +269,16 @@ function salon_form_notification_email_callback() {
     $email = get_option('salon_form_notification_email');
     echo '<input type="email" name="salon_form_notification_email" value="' . esc_attr($email) . '" class="regular-text">';
     echo '<p class="description">お問い合わせフォームおよび採用応募フォームの通知先メールアドレスを設定します。<br>未設定の場合は管理者メールアドレスが使用されます。</p>';
+}
+
+function salon_line_url_callback() {
+    $url = get_option('salon_line_url');
+    echo '<input type="url" name="salon_line_url" value="' . esc_url($url) . '" class="regular-text" placeholder="https://line.me/R/ti/p/...">';
+    echo '<p class="description">公式LINEの友だち追加リンクを設定します。</p>';
+}
+
+function salon_phone_number_callback() {
+    $phone = get_option('salon_phone_number', '080-1017-5318');
+    echo '<input type="text" name="salon_phone_number" value="' . esc_attr($phone) . '" class="regular-text">';
+    echo '<p class="description">サイト内に表示する代表電話番号を設定します。</p>';
 }

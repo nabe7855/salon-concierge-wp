@@ -196,7 +196,7 @@
 
                 <!-- CTA Group (Desktop) -->
                 <div class="hidden md:flex flex-col items-end gap-1 shrink-0">
-                    <a href="#" class="bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-1.5 rounded-full text-[10px] xl:text-xs font-bold flex items-center gap-2 transition-all shadow-sm">
+                    <a href="<?php echo esc_url(get_option('salon_line_url', '#')); ?>" class="bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-1.5 rounded-full text-[10px] xl:text-xs font-bold flex items-center gap-2 transition-all shadow-sm">
                         <?php salon_icon('message-circle', 'w-3 h-3 xl:w-4 xl:h-4'); ?>
                         LINEでお問い合わせ
                     </a>
@@ -233,10 +233,14 @@
                         </a>
                     <?php endforeach; ?>
                     <div class="pt-6 pb-4 flex flex-col gap-4">
-                        <a href="tel:080-1017-5318" class="flex items-center justify-center gap-3 bg-sage-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-sage-500/20 active:scale-95 transition-transform">
-                            <?php salon_icon('phone', 'w-5 h-5'); ?> 080-1017-5318
+                        <?php 
+                        $phone_number = get_option('salon_phone_number', '080-1017-5318');
+                        $line_url = get_option('salon_line_url', '#');
+                        ?>
+                        <a href="tel:<?php echo esc_attr(str_replace('-', '', $phone_number)); ?>" class="flex items-center justify-center gap-3 bg-sage-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-sage-500/20 active:scale-95 transition-transform">
+                            <?php salon_icon('phone', 'w-5 h-5'); ?> <?php echo esc_html($phone_number); ?>
                         </a>
-                        <a href="#" class="flex items-center justify-center gap-3 bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#06C755]/20 active:scale-95 transition-transform">
+                        <a href="<?php echo esc_url($line_url); ?>" class="flex items-center justify-center gap-3 bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#06C755]/20 active:scale-95 transition-transform">
                             <?php salon_icon('message-circle', 'w-5 h-5'); ?> LINE 24時間受付
                         </a>
                     </div>

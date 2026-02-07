@@ -3,14 +3,18 @@
     <!-- Mobile Floating Navigation -->
     <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 px-2 pb-4 pt-2 bg-gradient-to-t from-white via-white/80 to-transparent">
         <div class="flex items-stretch gap-1.5 h-14 md:h-18 max-w-md mx-auto">
+            <?php 
+            $phone_number = get_option('salon_phone_number', '080-1017-5318');
+            $line_url = get_option('salon_line_url', '#');
+            ?>
             <!-- Phone Button -->
-            <a href="tel:080-1017-5318" class="flex-1 bg-botanical-primary-light text-white rounded-xl shadow-lg flex flex-col items-center justify-center hover:opacity-90 transition-opacity">
+            <a href="tel:<?php echo esc_attr(str_replace('-', '', $phone_number)); ?>" class="flex-1 bg-botanical-primary-light text-white rounded-xl shadow-lg flex flex-col items-center justify-center hover:opacity-90 transition-opacity">
                 <?php salon_icon('phone', 'w-5 h-5 mb-0.5'); ?>
                 <span class="text-[9px] font-bold text-white leading-none">9:30-翌4:00</span>
             </a>
 
             <!-- LINE Button -->
-            <a href="#" class="flex-1 bg-white border-2 border-botanical-primary-light text-botanical-primary rounded-xl shadow-lg flex flex-col items-center justify-center hover:bg-gray-50 transition-colors">
+            <a href="<?php echo esc_url($line_url); ?>" class="flex-1 bg-white border-2 border-botanical-primary-light text-botanical-primary rounded-xl shadow-lg flex flex-col items-center justify-center hover:bg-gray-50 transition-colors">
                 <div class="bg-[#06C755] text-white rounded-full p-0.5 mb-1 px-1.5 text-[8px] font-black leading-none flex items-center justify-center h-5 w-10">LINE</div>
                 <span class="text-[9px] font-bold leading-none">24時間受付</span>
             </a>
@@ -36,10 +40,10 @@
                         メンズエステサロン運営の経験を活かし、オーナー様に代わってお電話を承ります。24時間受付のLINEでもお気軽にご相談ください。
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sage-600 transition-colors">
+                        <a href="<?php echo esc_url(get_option('salon_line_url', '#')); ?>" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sage-600 transition-colors">
                             <?php salon_icon('message-circle', 'w-5 h-5 text-white'); ?>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sage-600 transition-colors">
+                        <a href="tel:<?php echo esc_attr(str_replace('-', '', get_option('salon_phone_number', '080-1017-5318'))); ?>" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sage-600 transition-colors">
                             <?php salon_icon('phone', 'w-5 h-5 text-white'); ?>
                         </a>
                     </div>
@@ -76,7 +80,7 @@
                                 <?php salon_icon('phone', 'w-5 h-5 text-sage-400'); ?>
                                 <span class="text-white font-bold">お電話でのご相談</span>
                             </div>
-                            <p class="text-xl text-white font-bold mb-1">080-1017-5318</p>
+                            <p class="text-xl text-white font-bold mb-1"><?php echo esc_html(get_option('salon_phone_number', '080-1017-5318')); ?></p>
                             <p class="text-xs">受付時間: 9:30 - 翌6:00</p>
                         </div>
                         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="bg-sage-600 hover:bg-sage-700 p-4 rounded-xl flex flex-col justify-center transition-colors text-white">
@@ -88,7 +92,7 @@
                         </a>
                     </div>
                     <div class="mt-4">
-                        <a href="#" class="block w-full bg-[#06C755] hover:bg-[#05b34c] text-white py-3 rounded-xl text-center font-bold flex items-center justify-center gap-2 transition-colors">
+                        <a href="<?php echo esc_url(get_option('salon_line_url', '#')); ?>" class="block w-full bg-[#06C755] hover:bg-[#05b34c] text-white py-3 rounded-xl text-center font-bold flex items-center justify-center gap-2 transition-colors">
                             <?php salon_icon('message-circle', 'w-5 h-5'); ?> LINEでお問い合わせ（24時間受付）
                         </a>
                     </div>

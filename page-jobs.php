@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
             // Prepare Email to Admin
             $admin_email = get_option('salon_form_notification_email');
             if (empty($admin_email)) {
-                $admin_email = 'nabe7855@gmail.com';
+                $admin_email = get_option('admin_email');
             }
             $subject = '【求人応募】' . $name . '様よりエントリー';
             
@@ -84,9 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recruit_nonce'])) {
             $body .= "--------------------------------------------------\n";
 
             $headers = array('Content-Type: text/plain; charset=UTF-8');
-            // Use real email address created in ConoHa to avoid spoofing
-            $from_email = 'info@nabeya.online';
-            $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $from_email . '>';
             $headers[] = 'Reply-To: ' . $email;
 
             // Send to Admin
